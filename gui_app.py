@@ -15,8 +15,6 @@ DEFAULTS = {
     "fish_width": 0.360,
     "membrance_width": 0.170,
     "membrance_length": 1.096,
-    "membrane_1_on": True,
-    "membrane_2_on": True,
 }
 
 class FishSimLauncher(QtWidgets.QWidget):
@@ -28,6 +26,7 @@ class FishSimLauncher(QtWidgets.QWidget):
         self.params = DEFAULTS.copy()
         self.ros_proc = None
         self.gz_proc = None
+        self.motion_proc = None  # Track motion publisher process
 
         self.init_ui()
         self.update_interval()  # ← Ensures selected_interval is initialized correctly
@@ -113,9 +112,10 @@ class FishSimLauncher(QtWidgets.QWidget):
         # health_group.setMaximumWidth(400)  # Set max width for health group
 
         # ROBOT PARAMETERS
-        param_group = QtWidgets.QGroupBox("Fish Robot - Simulation Parameters")
+        param_group = QtWidgets.QGroupBox("Fish Robot - ROS Simulation Parameters")
         form_layout = QtWidgets.QFormLayout()
         self.widgets = {}
+
         for key, value in self.params.items():
             label = key.replace('_', ' ').capitalize()
             if isinstance(value, bool):
@@ -126,7 +126,7 @@ class FishSimLauncher(QtWidgets.QWidget):
             else:
                 spinbox = QtWidgets.QDoubleSpinBox()
                 spinbox.setDecimals(2)
-                spinbox.setValue(value)
+                spinbox.setValue(float(value))  # Ensure it's numeric in case of string
                 spinbox.setRange(0.01, 100.0)
                 if "number" in key:
                     spinbox.setDecimals(0)
@@ -134,15 +134,74 @@ class FishSimLauncher(QtWidgets.QWidget):
                 self.widgets[key] = spinbox
                 form_layout.addRow(f"{label}:", spinbox)
 
+        # === BUTTONS ===
+        button_layout = QtWidgets.QHBoxLayout()
+        # 🚀 Launch Button (Green)
+        self.launch_button = QtWidgets.QPushButton("Launch")
+        self.launch_button.setStyleSheet("""
+            QPushButton {
+                background-color: #4CAF50;
+                color: white;
+                font-weight: bold;
+            }
+            QPushButton:disabled {
+                background-color: #A5D6A7;  /* lighter green */
+                color: #eeeeee;
+            }
+        """)
+
+        # 🛑 Stop Button (Red)
+        self.stop_button = QtWidgets.QPushButton("Stop")
+        self.stop_button.setStyleSheet("""
+            QPushButton {
+                background-color: #F44336;
+                color: white;
+                font-weight: bold;
+            }
+            QPushButton:disabled {
+                background-color: #EF9A9A;  /* lighter red */
+                color: #eeeeee;
+            }
+        """)
+        self.stop_button.setEnabled(False)
+
+        # 🔁 Restart Button (Orange)
+        self.restart_button = QtWidgets.QPushButton("Restart")
+        self.restart_button.setStyleSheet("""
+            QPushButton {
+                background-color: #FF9800;
+                color: white;
+                font-weight: bold;
+            }
+            QPushButton:disabled {
+                background-color: #FFCC80;  /* lighter orange */
+                color: #eeeeee;
+            }
+        """)
+        self.restart_button.setEnabled(False)
+
+        self.launch_button.clicked.connect(self.launch_all)
+        self.stop_button.clicked.connect(self.stop_all)
+        self.restart_button.clicked.connect(self.restart_all)
+
+        button_layout.addStretch()
+        button_layout.addWidget(self.launch_button)
+        button_layout.addWidget(self.stop_button)
+        button_layout.addWidget(self.restart_button)
+        button_layout.addStretch()
+
+        # ✅ Add buttons to form layout (not directly to group box)
+        form_layout.addRow(button_layout)
+
         param_group.setLayout(form_layout)
-        param_group.setMinimumWidth(250)  # Set minimum width for the parameters group
+        param_group.setMinimumWidth(250)
 
         # === RIGHT SIDE: Robot + Environment Params in a vertical layout ===
         right_panel_layout = QtWidgets.QVBoxLayout()
         right_panel_layout.addWidget(param_group)
 
         # ENVIRONMENT PARAMETERS
-        env_group = QtWidgets.QGroupBox("🌊 Ocean Current Settings")
+        env_group = QtWidgets.QGroupBox("Ocean Current Settings")
         env_main_layout = QtWidgets.QVBoxLayout()
 
         # Row 1: X, Y, Z spin boxes
@@ -170,15 +229,12 @@ class FishSimLauncher(QtWidgets.QWidget):
         self.env_apply_button.clicked.connect(self.apply_environment_params)
         self.env_reset_button.clicked.connect(self.reset_environment_params)
 
-        button_layout.addStretch()
         button_layout.addWidget(self.env_apply_button)
         button_layout.addWidget(self.env_reset_button)
-        button_layout.addStretch()
 
         env_main_layout.addLayout(button_layout)
         env_group.setLayout(env_main_layout)
         right_panel_layout.addWidget(env_group)
-
 
         # Add both system health and right panel to top layout
         top_layout.addWidget(health_group)
@@ -186,26 +242,6 @@ class FishSimLauncher(QtWidgets.QWidget):
 
         # Add the top_layout to the main_layout
         main_layout.addLayout(top_layout)
-
-        # === BUTTONS ===
-        button_layout = QtWidgets.QHBoxLayout()
-        self.launch_button = QtWidgets.QPushButton("🚀 Launch")
-        self.launch_button.clicked.connect(self.launch_all)
-
-        self.stop_button = QtWidgets.QPushButton("🛑 Stop")
-        self.stop_button.clicked.connect(self.stop_all)
-        self.stop_button.setEnabled(False)
-
-        self.restart_button = QtWidgets.QPushButton("🔁 Restart")
-        self.restart_button.clicked.connect(self.restart_all)
-        self.restart_button.setEnabled(False)
-
-        button_layout.addStretch()
-        button_layout.addWidget(self.launch_button)
-        button_layout.addWidget(self.stop_button)
-        button_layout.addWidget(self.restart_button)
-        button_layout.addStretch()
-        main_layout.addLayout(button_layout)
 
         # === OUTPUT + MOTION PANEL ===
         bottom_layout = QtWidgets.QHBoxLayout()
@@ -226,74 +262,189 @@ class FishSimLauncher(QtWidgets.QWidget):
 
         # === FISH MOTION CONTROL PANEL ===
         motion_group = QtWidgets.QGroupBox("Fish Motion Parameters")
-        motion_layout = QtWidgets.QFormLayout()
+        motion_layout = QtWidgets.QVBoxLayout()
         self.motion_widgets = {}
 
-        def add_spin(name, default, minval, maxval, step=0.1, decimals=3):
-            box = QtWidgets.QDoubleSpinBox()
-            box.setRange(minval, maxval)
-            box.setSingleStep(step)
-            box.setDecimals(decimals)
-            box.setValue(default)
-            self.motion_widgets[name] = box
-            motion_layout.addRow(name.replace('_', ' ').capitalize(), box)
+        # === Row 1: Wave type and mode ===
+        wave_settings = QtWidgets.QHBoxLayout()
 
-        def add_check(name, default):
-            chk = QtWidgets.QCheckBox()
-            chk.setChecked(default)
-            self.motion_widgets[name] = chk
-            motion_layout.addRow(name.replace('_', ' ').capitalize(), chk)
+        self.wave_type_combo = QtWidgets.QComboBox()
+        self.wave_type_combo.addItems(["linear", "quadratic", "elliptic"])
+        self.wave_type_combo.currentTextChanged.connect(self.on_wave_type_change)
+        wave_settings.addWidget(QtWidgets.QLabel("Wave Type:"))
+        wave_settings.addWidget(self.wave_type_combo)
 
-        add_spin("frequency_1", 1.0, 0.01, 10.0)
-        add_spin("frequency_2", 1.0, 0.01, 10.0)
-        add_spin("wave_number", 1.0, 0.0, 10.0)
-        add_spin("scale_factor", 1.0, 0.0, 2.0)
-        add_spin("shifted_amplitude", 60.0, 0.0, 180.0)
-        add_check("shifted_upward", True)
-        add_check("forward_movement", True)
-        add_check("spin_movement", False)
-        add_check("forward_sf", True)
+        self.wave_mode_combo = QtWidgets.QComboBox()
+        self.wave_mode_combo.addItems(["traveling", "standing"])
+        wave_settings.addWidget(QtWidgets.QLabel("Wave Mode:"))
+        wave_settings.addWidget(self.wave_mode_combo)
 
-        motion_btn_layout = QtWidgets.QHBoxLayout()
+        self.wave_number_spin = QtWidgets.QDoubleSpinBox()
+        self.wave_number_spin.setRange(0.0, 10.0)
+        self.wave_number_spin.setSingleStep(0.1)
+        self.wave_number_spin.setValue(1.0)
+        wave_settings.addWidget(QtWidgets.QLabel("Wave Number:"))
+        wave_settings.addWidget(self.wave_number_spin)
+
+        motion_layout.addLayout(wave_settings)
+
+        # === Row 2: Membrane ON/OFF checkboxes ===
+        # on_row = QtWidgets.QHBoxLayout()
+        # self.m1_on = QtWidgets.QCheckBox("Membrane 1 ON"); self.m1_on.setChecked(True)
+        # self.m2_on = QtWidgets.QCheckBox("Membrane 2 ON"); self.m2_on.setChecked(True)
+        # on_row.addWidget(self.m1_on); on_row.addStretch(); on_row.addWidget(self.m2_on)
+        # motion_layout.addLayout(on_row)
+
+        # === Row 3: Membrane 1 and 2 parameter groups side-by-side ===
+        membrane_row = QtWidgets.QHBoxLayout()
+
+        def create_membrane_group(label_prefix, suffix):
+            group = QtWidgets.QGroupBox(label_prefix)
+            layout = QtWidgets.QFormLayout()
+
+            def add_spin(key, val, minv, maxv, step=0.1):
+                box = QtWidgets.QDoubleSpinBox()
+                box.setRange(minv, maxv); box.setValue(val); box.setSingleStep(step)
+                self.motion_widgets[f"{suffix}_{key}"] = box
+                layout.addRow(key.replace('_', ' ').capitalize(), box)
+
+            def add_check(key, checked=True):
+                box = QtWidgets.QCheckBox()
+                box.setChecked(checked)
+                self.motion_widgets[f"{suffix}_{key}"] = box
+                layout.addRow(key.replace('_', ' ').capitalize(), box)
+
+            add_spin("frequency", 0.2, -10.0, 10.0)
+            add_spin("base_amplitude", 30.0, -180.0, 180.0)
+            add_spin("shifted_amplitude", 10.0, -180.0, 180.0)
+            add_spin("phase_offset", 180.0 if suffix == "m1" else 0.0, -360.0, 360.0)
+            add_spin("scale_factor", 1.0, 0.0, 2.0)
+            add_check("forward_s.f.")
+
+            group.setLayout(layout)
+            return group
+
+        membrane_row.addWidget(create_membrane_group("Membrane 1", "m1"))
+        membrane_row.addWidget(create_membrane_group("Membrane 2", "m2"))
+        motion_layout.addLayout(membrane_row)
+
+        # === Row 4: Apply/Launch/Stop buttons ===
+        motion_btns = QtWidgets.QHBoxLayout()
         self.apply_motion_btn = QtWidgets.QPushButton("Apply Motion")
-        self.launch_motion_btn = QtWidgets.QPushButton("Launch Motion")
-
+        self.launch_motion_btn = QtWidgets.QPushButton("Start")
+        self.stop_motion_btn = QtWidgets.QPushButton("Stop")
         self.apply_motion_btn.clicked.connect(self.save_motion_config)
         self.launch_motion_btn.clicked.connect(self.launch_motion_publisher)
+        self.stop_motion_btn.clicked.connect(self.stop_motion)
+        self.stop_motion_btn.setEnabled(False)  # Initially disabled
+        motion_btns.addWidget(self.apply_motion_btn)
+        motion_btns.addWidget(self.launch_motion_btn)
+        motion_btns.addWidget(self.stop_motion_btn)
+        motion_layout.addLayout(motion_btns)
 
-        motion_btn_layout.addWidget(self.apply_motion_btn)
-        motion_btn_layout.addWidget(self.launch_motion_btn)
-
-        motion_layout.addRow(motion_btn_layout)
         motion_group.setLayout(motion_layout)
-
-        bottom_layout.addWidget(motion_group, 1)  # take 1/3 of space
+        bottom_layout.addWidget(motion_group, 1)
 
         # Add to main layout
         main_layout.addLayout(bottom_layout)
 
         self.setLayout(main_layout)
 
+    # === Function to update scale factor visibility ===
+    def on_wave_type_change(self):
+        wtype = self.wave_type_combo.currentText()
+        for suffix in ["m1", "m2"]:
+            sf_widget = self.motion_widgets[f"{suffix}_scale_factor"]
+            sf_forward_widget = self.motion_widgets[f"{suffix}_forward_s.f."]
+            if wtype == "linear":
+                sf_widget.setEnabled(False)
+                sf_forward_widget.setEnabled(False)
+                sf_widget.setValue(1.0)
+            elif wtype == "quadratic":
+                sf_widget.setEnabled(True)
+                sf_forward_widget.setEnabled(True)
+                sf_widget.setRange(0.0, 1.0)
+            elif wtype == "elliptic":
+                sf_widget.setEnabled(True)
+                sf_forward_widget.setEnabled(True)
+                sf_widget.setRange(0.0, 1.0)
 
     def save_motion_config(self):
-        for key, widget in self.motion_widgets.items():
-            if isinstance(widget, QtWidgets.QCheckBox):
-                self.params[key] = widget.isChecked()
-            else:
-                self.params[key] = float(widget.value())
+        try:
+            # Save shared parameters
+            self.params["wave_type"] = self.wave_type_combo.currentText()
+            self.params["wave_mode"] = self.wave_mode_combo.currentText()
+            self.params["wave_number"] = self.wave_number_spin.value()
+            self.params["membrane_1_on"] = True  # Always on
+            self.params["membrane_2_on"] = True  # Always on
 
-        with open(CONFIG_FILE, "w") as f:
-            json.dump(self.params, f, indent=4)
-        self.log("💾 Motion parameters saved to config.")
+            # Save membrane 1 parameters
+            self.params["membrane_1"] = {
+                "frequency": self.motion_widgets["m1_frequency"].value(),
+                "base_amplitude": self.motion_widgets["m1_base_amplitude"].value(),
+                "shifted_amplitude": self.motion_widgets["m1_shifted_amplitude"].value(),
+                "scale_factor": self.motion_widgets["m1_scale_factor"].value(),
+                "forward_sf": self.motion_widgets["m1_forward_s.f."].isChecked(),
+                "phase_offset": self.motion_widgets["m1_phase_offset"].value()
+            }
+
+            # Save membrane 2 parameters
+            self.params["membrane_2"] = {
+                "frequency": self.motion_widgets["m2_frequency"].value(),
+                "base_amplitude": self.motion_widgets["m2_base_amplitude"].value(),
+                "shifted_amplitude": self.motion_widgets["m2_shifted_amplitude"].value(),
+                "scale_factor": self.motion_widgets["m2_scale_factor"].value(),
+                "forward_sf": self.motion_widgets["m2_forward_s.f."].isChecked(),
+                "phase_offset": self.motion_widgets["m2_phase_offset"].value()
+            }
+
+            # Write to config file
+            with open(CONFIG_FILE, "w") as f:
+                json.dump(self.params, f, indent=4)
+            self.log("💾 Motion parameters saved to config.")
+        except Exception as e:
+            self.log(f"❌ Failed to save motion parameters: {str(e)}")
 
     def launch_motion_publisher(self):
+        if self.motion_proc is not None:
+            self.log("⚠️ Motion publisher already running.")
+            return
+        
         self.save_motion_config()
         cmd = (
             "source /opt/ros/humble/setup.bash && "
-            "/bin/python3 /home/maycuaaiz/Desktop/FishRobot-ROS/publisher_member_function.py"
+            "/bin/python3 /home/maycuaaiz/Desktop/FishRobot-ROS/fish_control.py"
         )
         self.log("🚀 Launching fish motion publisher...")
-        subprocess.Popen(cmd, shell=True, executable="/bin/bash")
+        try:
+            self.motion_proc = subprocess.Popen(cmd, shell=True, executable="/bin/bash")
+            self.log(f"✅ Motion publisher started. PID: {self.motion_proc.pid}")
+            self.launch_motion_btn.setEnabled(False)
+            self.stop_motion_btn.setEnabled(True)
+        except Exception as e:
+            self.log(f"❌ Failed to launch motion publisher: {str(e)}")
+            self.motion_proc = None
+
+    def stop_motion(self):
+        if self.motion_proc is None:
+            self.log("⚠️ No motion publisher running.")
+            return
+        
+        self.log("🛑 Stopping motion publisher...")
+        try:
+            self.motion_proc.terminate()  # Try graceful termination
+            self.motion_proc.wait(timeout=5)  # Wait for process to exit
+            self.log(f"✅ Motion publisher (PID: {self.motion_proc.pid}) terminated.")
+        except subprocess.TimeoutExpired:
+            self.log("⚠️ Motion publisher did not terminate gracefully. Forcing kill...")
+            self.motion_proc.kill()  # Force kill if it doesn't terminate
+            self.log(f"✅ Motion publisher (PID: {self.motion_proc.pid}) killed.")
+        except Exception as e:
+            self.log(f"❌ Failed to stop motion publisher: {str(e)}")
+        
+        self.motion_proc = None
+        self.launch_motion_btn.setEnabled(True)
+        self.stop_motion_btn.setEnabled(False)
 
     def reset_environment_params(self):
         self.env_x.setValue(0.0)
@@ -329,14 +480,41 @@ class FishSimLauncher(QtWidgets.QWidget):
         try:
             with open(CONFIG_FILE) as f:
                 self.params.update(json.load(f))
-                for key, widget in self.widgets.items():
-                    if isinstance(widget, QtWidgets.QCheckBox):
-                        widget.setChecked(self.params[key])
-                    else:
-                        widget.setValue(self.params[key])
+
+            # Load shared settings
+            self.wave_type_combo.setCurrentText(self.params.get("wave_type", "linear"))
+            self.wave_mode_combo.setCurrentText(self.params.get("wave_mode", "traveling"))
+            self.wave_number_spin.setValue(self.params.get("wave_number", 1.0))
+            # No need to load membrane_1_on or membrane_2_on; assume always True
+
+            # Load membrane 1
+            m1 = self.params.get("membrane_1", {})
+            self.motion_widgets["m1_frequency"].setValue(m1.get("frequency", 0.2))
+            self.motion_widgets["m1_base_amplitude"].setValue(m1.get("base_amplitude", 30.0))
+            self.motion_widgets["m1_shifted_amplitude"].setValue(m1.get("shifted_amplitude", 10.0))
+            self.motion_widgets["m1_scale_factor"].setValue(m1.get("scale_factor", 1.0))
+            self.motion_widgets["m1_phase_offset"].setValue(m1.get("phase_offset", 180.0))
+            self.motion_widgets["m1_forward_s.f."].setChecked(m1.get("forward_sf", True))
+
+            # Load membrane 2
+            m2 = self.params.get("membrane_2", {})
+            self.motion_widgets["m2_frequency"].setValue(m2.get("frequency", 0.2))
+            self.motion_widgets["m2_base_amplitude"].setValue(m2.get("base_amplitude", 30.0))
+            self.motion_widgets["m2_shifted_amplitude"].setValue(m2.get("shifted_amplitude", 10.0))
+            self.motion_widgets["m2_scale_factor"].setValue(m2.get("scale_factor", 1.0))
+            self.motion_widgets["m2_phase_offset"].setValue(m2.get("phase_offset", 0.0))
+            self.motion_widgets["m2_forward_s.f."].setChecked(m2.get("forward_sf", True))
+
+            # Ensure params reflect always-on membranes
+            self.params["membrane_1_on"] = True
+            self.params["membrane_2_on"] = True
+
             self.log("✅ Configuration loaded.")
-        except Exception:
-            self.log("⚠️ No config found. Using default parameters.")
+        except Exception as e:
+            self.log(f"⚠️ No config found or error loading: {str(e)}. Using default parameters.")
+            # Set default membrane states
+            self.params["membrane_1_on"] = True
+            self.params["membrane_2_on"] = True
 
     def update_params(self):
         for key, widget in self.widgets.items():
@@ -396,6 +574,10 @@ class FishSimLauncher(QtWidgets.QWidget):
         
         self.log("🛑 Stopping processes...")
 
+        # Stop motion publisher if running
+        if self.motion_proc is not None:
+            self.stop_motion()
+
         ros_stopped = kill_processes_by_name("parameter_bridge")
         gazebo_stopped = kill_processes_by_name("gazebo")
 
@@ -412,6 +594,7 @@ class FishSimLauncher(QtWidgets.QWidget):
         self.launch_button.setEnabled(True)
         self.stop_button.setEnabled(False)
         self.restart_button.setEnabled(False)
+
   # Optional: Better default look
     def restart_all(self):
         self.log("🔁 Restarting simulation...")

@@ -6,13 +6,23 @@
     "membrance_length": 1.1,
     "membrane_1_on": true,
     "membrane_2_on": true,
-    "frequency_1": 1.0,
-    "frequency_2": 1.0,
-    "wave_number": 1.0,
-    "scale_factor": 1.0,
-    "shifted_amplitude": 60.0,
-    "shifted_upward": true,
-    "forward_movement": true,
-    "spin_movement": false,
-    "forward_sf": true
+    "wave_type": "elliptic",
+    "wave_mode": "traveling",
+    "wave_number": 2.0,
+    "membrane_1": {
+        "frequency": 0.5,
+        "base_amplitude": 30.0,
+        "shifted_amplitude": 0.0,
+        "scale_factor": 0.5,
+        "forward_sf": true,
+        "phase_offset": 0.0
+    },
+    "membrane_2": {
+        "frequency": 0.5,
+        "base_amplitude": 30.0,
+        "shifted_amplitude": 0.0,
+        "scale_factor": 0.5,
+        "forward_sf": true,
+        "phase_offset": 0.0
+    }
 }
