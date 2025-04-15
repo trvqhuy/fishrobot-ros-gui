@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='utf-8'?>
+<model>
+
+  <link name='fin_1_1'>
+    <pose relative_to="fin_1_1_circular">0 0 0 0 0 0</pose>
+    <inertial>
+      <mass>0.015</mass>
+      <!-- <inertia>
+        <ixx>0.043333</ixx>
+        <ixy>0</ixy>
+        <ixz>0</ixz>
+        <iyy>0.043333</iyy>
+        <iyz>0</iyz>
+        <izz>0.08</izz>
+      </inertia> -->
+    </inertial>
+    <visual name='visual'>
+      <geometry>
+        <box>
+          <size>0.005 0.30 0.01</size>
+        </box>
+      </geometry>
+      <material>
+        <ambient>0.05 0.05 0.05 1</ambient>
+        <diffuse>0.05 0.05 0.05 1</diffuse>
+        <specular>0.05 0.05 0.05 1</specular>
+      </material>
+    </visual>
+    <collision name='collision'>
+      <geometry>
+        <box>
+          <size>0.005 0.30 0.01</size>
+        </box>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name='fin_1_1_circular'>
+    <pose relative_to="fish_body">0.0 0.35 0.0 1.5708 1.5708 1.5708</pose>
+    <inertial>
+      <mass>0.00125664</mass>
+      <!-- <inertia>
+        <ixx>0.043333</ixx>
+        <ixy>0</ixy>
+        <ixz>0</ixz>
+        <iyy>0.043333</iyy>
+        <iyz>0</iyz>
+        <izz>0.08</izz>
+      </inertia> -->
+    </inertial>
+    <visual name='visual'>
+      <geometry>
+        <cylinder>
+          <radius>0.2</radius>
+          <length>0.1</length>
+        </cylinder>
+      </geometry>
+      <material>
+        <ambient>1 0.5 0 1</ambient>
+        <diffuse>1 0.5 0 1</diffuse>
+        <specular>1 0.5 0 1</specular>
+      </material>
+      
+    </visual>
+    <collision name='collision'>
+      <geometry>
+        <cylinder>
+          <radius>0.2</radius>
+          <length>0.1</length>
+        </cylinder>
+      </geometry>
+    </collision>
+  </link>
+
+  <plugin
+    filename="ignition-gazebo-joint-position-controller-system"
+    name="ignition::gazebo::systems::JointPositionController">
+    <joint_name>fin_1_1_joint</joint_name>
+    <p_gain>80</p_gain>
+    <i_gain>0.5</i_gain>
+    <d_gain>0.1</d_gain>
+    <i_max>1</i_max>
+    <i_min>-1</i_min>
+    <cmd_max>100</cmd_max>
+    <cmd_min>-100</cmd_min>
+  </plugin>
+
+  <plugin
+    filename="ignition-gazebo-joint-position-controller-system"
+    name="ignition::gazebo::systems::JointPositionController">
+    <joint_name>fin_1_1_circular_joint</joint_name>
+    <p_gain>80</p_gain>
+    <i_gain>1</i_gain>
+    <d_gain>0.1</d_gain>
+    <i_max>1</i_max>
+    <i_min>-1</i_min>
+    <cmd_max>100</cmd_max>
+    <cmd_min>-100</cmd_min>
+  </plugin>
+
+  <!-- <joint name='fin_1_1_joint' type='fixed'>
+    <parent>fin_1_1</parent>
+    <child>fin_1_axis</child>
+  </joint> -->
+
+  <joint name='fin_1_1_joint' type='revolute'>
+    <pose relative_to='fin_1_1_circular' />
+    <child>fin_1_1</child>
+    <parent>fin_1_1_circular</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <lower>-2.08567</lower>
+        <upper>2.08567</upper>
+        <effort>100.25</effort>
+        <velocity>100</velocity>
+      </limit>
+      <dynamics>
+        <damping>15</damping>
+        <friction>0</friction>
+        <spring_reference>0</spring_reference>
+        <spring_stiffness>0</spring_stiffness>
+      </dynamics>
+    </axis>
+  </joint>
+
+  <joint name='fin_1_1_circular_joint' type='revolute'>
+    <pose relative_to='fin_1_axis' />
+    <child>fin_1_1_circular</child>
+    <parent>fin_1_axis</parent>
+    <axis>
+      <xyz>0 1 0</xyz>
+      <limit>
+        <lower>-2.08567</lower>
+        <upper>2.08567</upper>
+        <effort>100.25</effort>
+        <velocity>100</velocity>
+      </limit>
+      <dynamics>
+        <damping>10</damping>
+        <friction>0</friction>
+        <spring_reference>0</spring_reference>
+        <spring_stiffness>0</spring_stiffness>
+      </dynamics>
+    </axis>
+  </joint>
+
+  <plugin name='gz::sim::systems::LiftDrag' filename='ignition-gazebo-lift-drag-system'>
+    <air_density>1000</air_density>
+
+    <a0>0</a0>
+    <alpha_stall>1.5708</alpha_stall>
+
+    <cla>1.535816618911175</cla>
+    <cla_stall>1.4326647564469914</cla_stall>
+  
+    <cda>0</cda>
+    <cda_stall>0</cda_stall>
+
+    <area>0.01096</area>
+    <upward>0 0 1.0</upward>
+    <forward>0 -1.0 0</forward>
+    <link_name>propeller</link_name>
+    <cp>0 0 0</cp>
+  </plugin>
+
+  <link name='fin_1_axis'>
+    <pose relative_to="fish_body">0.0 0.2 0 0 0 0</pose>
+    <inertial>
+      <!-- <inertia>
+        <ixx>0.14580000000000001</ixx>
+        <ixy>0</ixy>
+        <ixz>0</ixz>
+        <iyy>0.14580000000000001</iyy>
+        <iyz>0</iyz>
+        <izz>0.125</izz>
+      </inertia> -->
+      <mass>0.31416</mass>
+    </inertial>
+    <collision name='fin_1_axis_collision'>
+      <geometry>
+        <cylinder>
+          <radius>0.01</radius>
+          <length>1</length>
+        </cylinder>
+      </geometry>
+      <surface>
+        <friction>
+          <ode />
+        </friction>
+        <bounce />
+        <contact />
+      </surface>
+    </collision>
+    <visual name='fin_1_axis_visual'>
+      <geometry>
+        <cylinder>
+          <radius>0.01</radius>
+          <length>1</length>
+        </cylinder>
+      </geometry>
+      <material>
+        <ambient>0.3 0.3 0.3 1</ambient>
+        <diffuse>0.7 0.7 0.7 1</diffuse>
+        <specular>1 1 1 1</specular>
+      </material>
+    </visual>
+  </link>
+
+  <joint name='fin_1_axis_fix' type='fixed'>
+    <parent>fish_body</parent>
+    <child>fin_1_axis</child>
+    <pose relative_to="fish_body">0.0 0.2 0 0 0 0</pose>
+  </joint>
+</model>

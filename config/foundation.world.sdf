@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.9">
+	<world name="custom_world">
+
+	<plugin
+		filename="libignition-gazebo-scene-broadcaster-system.so"
+		name="gz::sim::systems::SceneBroadcaster">
+	  </plugin>
+		<physics name='20ms' type='ode'>
+			<max_step_size>0.020</max_step_size>
+			<real_time_factor>1</real_time_factor>
+			<real_time_update_rate>50</real_time_update_rate>
+		</physics>
+
+		<plugin
+			filename="ignition-gazebo-physics-system"
+			name="ignition::gazebo::systems::Physics">
+		</plugin>
+
+		<plugin
+			filename="ignition-gazebo-scene-broadcaster-system"
+			name="ignition::gazebo::systems::SceneBroadcaster">
+		</plugin>
+
+		<plugin name='gz::sim::systems::UserCommands'
+			filename='ignition-gazebo-user-commands-system' />
+
+		<plugin name='gz::sim::systems::Buoyancy'
+			filename='ignition-gazebo-buoyancy-system'>
+			<uniform_fluid_density>1000</uniform_fluid_density>
+		</plugin>
+
+		<engine>ogre2</engine>
+		<scene>scene</scene>
+		<ambient_light>1.0 1.0 1.0</ambient_light>
+		<background_color>0.4 0.6 1.0</background_color>
+		<camera_pose>8.3 7 7.8 0 0.5 -2.4</camera_pose>
+		<gravity>0 0 -9.8</gravity>
+		<magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+		<atmosphere type='adiabatic' />
+		<!-- <scene>
+			<ambient>0.4 0.4 0.4 1</ambient>
+			<background>0.7 0.7 1 1</background>
+			<shadows>true</shadows>
+		</scene> -->
+
+		<light name='sun' type='directional'>
+			<pose>0 0 10 0 -0 0</pose>
+			<cast_shadows>true</cast_shadows>
+			<intensity>1</intensity>
+			<direction>-0.5 0.1 -0.9</direction>
+			<diffuse>1 1 1 1</diffuse>
+			<specular>0.5 0.5 0.5 1</specular>
+			<attenuation>
+				<range>1000</range>
+				<linear>0.01</linear>
+				<constant>0.90000000000000002</constant>
+				<quadratic>0.001</quadratic>
+			</attenuation>
+			<spot>
+				<inner_angle>0</inner_angle>
+				<outer_angle>0</outer_angle>
+				<falloff>0</falloff>
+			</spot>
+		</light>
+
+		<model name="fish_robot">
+
+			<plugin filename="ignition-gazebo-imu-system"
+				name="ignition::gazebo::systems::Imu">
+			</plugin>
+
+			<link name="fish_body">
+				<sensor name="imu_sensor" type="imu">
+					<always_on>1</always_on>
+					<update_rate>10</update_rate>
+					<visualize>true</visualize>
+					<topic>imu</topic>
+				</sensor>
+				<pose>0 0 0 1.5708 0 0</pose>
+
+				<inertial>
+					<pose>0 0 0 0 0 0</pose>
+					<mass>62.99300000</mass>
+					<inertia>
+						<!-- <ixx>7.59789106333714</ixx>
+						<ixy>0.00000654591209</ixy>
+						<ixz>0.00000553514328</ixz>
+						<iyy>8.02244926924626</iyy>
+						<iyz>0.00005178504998</iyz>
+						<izz>0.60472732159161</izz> -->
+
+						<ixx>7.49</ixx>
+						<ixy>0.00</ixy>
+						<ixz>0.00</ixz>
+						<iyy>7.49</iyy>
+						<iyz>0.00</iyz>
+						<izz>0.60</izz>
+					</inertia>
+				</inertial>
+
+
+				<collision name="fish_collision">
+					<geometry>
+						<mesh>
+							<uri>
+								/home/maycuaaiz/Desktop/FishRobot-ROS/models/hull_mesh.stl</uri>
+							<scale>1 1 1</scale>
+						</mesh>
+					</geometry>
+				</collision>
+
+				<visual name="fish_visual">
+					<pose>-0.18130304269 -0.08284609487 -0.61094072595 0 0 0</pose>
+
+					<cast_shadows>1</cast_shadows>
+					<transparency>0</transparency>
+
+					<geometry>
+						<mesh>
+							<uri>
+								/home/maycuaaiz/Desktop/FishRobot-ROS/models/hull_mesh.stl</uri>
+							<scale>1 1 1</scale>
+						</mesh>
+					</geometry>
+
+					<material>
+						<ambient>0.8 0.8 0.8 1</ambient>
+						<diffuse>0.8 0.8 0.8 1</diffuse>
+						<specular>0.8 0.8 0.8 1</specular>
+						<emissive>0 0 0 1</emissive>
+					</material>
+				</visual>
+
+				<enable_wind>false</enable_wind>
+			</link>
+
+			<plugin filename="ignition-gazebo-hydrodynamics-system"
+				name="ignition::gazebo::systems::Hydrodynamics">
+				<link_name>fish_body</link_name>
+
+				<!-- Translation -->
+				<xDotU>-10.1853</xDotU>
+				<xUU>0.75844</xUU>
+				<xU>-51.9386</xU> 
+
+				<yDotV>-55.8425</yDotV>
+				<yVV>-1.782</yVV>
+				<yV>-37.6800</yV>
+
+				<zDotW>-8.06883</zDotW>
+				<zWW>-0.08794</zWW>
+				<zW>-98.866</zW>
+
+				<!-- Rotational -->
+
+				<kDotP>-4.42167</kDotP>
+				<mDotQ>-7.3833</mDotQ>
+				<nDotR>-0.55848</nDotR>
+
+				<kPabsP>-210.158</kPabsP>
+				<kP>-104.72</kP>
+				
+				<mQabsQ>-190</mQabsQ>
+				<mQ>-10</mQ>
+
+				<nRabsR>-0.2106</nRabsR>
+				<nR>-1.0869</nR>
+
+				<!-- <mDotQ>-74.9</mDotQ>
+				<mQQ>-28.588</mQQ>
+				<mQ>-15.68</mQ> -->
+				
+				<!-- <xDotU>-1.258284</xDotU>
+				<xUU>-32.6899</xUU>
+				<xU>-280.2128</xU>
+
+				<yDotV>-0.3541</yDotV>
+				<yVV>-57.8237</yVV>
+				<yV>-395.4553</yV>
+
+				<zDotW>-0.092215</zDotW>
+				<zWW>-3.7284</zWW>
+				<zW>-10.3873</zW>
+
+				<kDotP>-0.0706666667</kDotP>
+				<kPP>-5.3837</kPP>
+				<kP>-4.8434</kP>
+
+				<mDotQ>-0.01734466667</mDotQ>
+				<mQQ>-21.9755</mQQ>
+				<mQ>-19.0392</mQ>
+
+				<nDotR>-0.04523666667</nDotR>
+				<nRR>-5.3837</nRR>
+				<nR>-4.8434</nR> -->
+
+
+			</plugin>
+
+		</model>
+
+	</world>
+
+</sdf>

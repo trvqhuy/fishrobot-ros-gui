@@ -1,0 +1,18 @@
+{
+    "link_number": 50,
+    "fish_length": 1.22,
+    "fish_width": 0.36,
+    "membrance_width": 0.17,
+    "membrance_length": 1.1,
+    "membrane_1_on": true,
+    "membrane_2_on": true,
+    "frequency_1": 1.0,
+    "frequency_2": 1.0,
+    "wave_number": 1.0,
+    "scale_factor": 1.0,
+    "shifted_amplitude": 60.0,
+    "shifted_upward": true,
+    "forward_movement": true,
+    "spin_movement": false,
+    "forward_sf": true
+}
