@@ -4,9 +4,14 @@ import csv
 from rclpy.node import Node
 from sensor_msgs.msg import Imu
 from geometry_msgs.msg import PoseArray
+import matplotlib
+import numpy #pip install "numpy<2"
 import matplotlib.pyplot as plt
 import threading
 import time
+
+print("Matplotlib version:", matplotlib.__version__)
+print("NumPy version:", numpy.__version__)
 
 class ImuListener(Node):
 
@@ -106,6 +111,10 @@ def plot_data(node):
     base_file_path = 'data.csv'
     file_path = get_new_file_path(base_file_path)
 
+    # Wait until at least one pose message has been received
+    while rclpy.ok() and not node.pos_times:
+        time.sleep(0.1)
+
     # Open the CSV file in append mode
     with open(file_path, mode='a', newline='') as file:
         writer = csv.writer(file)
@@ -122,20 +131,20 @@ def plot_data(node):
 
         while rclpy.ok():
             times_seconds = node.pos_times
-            # Convert times to seconds relative to the start time
             start_time = times_seconds[0]
             times_seconds = [(t - start_time) for t in times_seconds]
-            # Ensure all lists are of equal length by trimming to the length of the shortest list
+
             min_length = min(len(times_seconds), 
-                            len(node.orientations['x']), len(node.orientations['y']), len(node.orientations['z']), 
-                            len(node.angular_velocities['x']), len(node.angular_velocities['y']), len(node.angular_velocities['z']), 
-                            len(node.positions['x']), len(node.positions['y']), len(node.positions['z']),
-                            len(node.linear_velocities['x']), len(node.linear_velocities['y']), len(node.linear_velocities['z']))
+                             len(node.orientations['x']), len(node.orientations['y']), len(node.orientations['z']), 
+                             len(node.angular_velocities['x']), len(node.angular_velocities['y']), len(node.angular_velocities['z']), 
+                             len(node.positions['x']), len(node.positions['y']), len(node.positions['z']),
+                             len(node.linear_velocities['x']), len(node.linear_velocities['y']), len(node.linear_velocities['z']))
 
             orientations = {key: val[:min_length] for key, val in node.orientations.items()}
             angular_velocities = {key: val[:min_length] for key, val in node.angular_velocities.items()}
             positions = {key: val[:min_length] for key, val in node.positions.items()}
             linear_velocities = {key: val[:min_length] for key, val in node.linear_velocities.items()}
+            times_seconds = times_seconds[:min_length]
 
             axs[0, 0].clear()
             axs[0, 0].plot(times_seconds, orientations['x'], label='Orientation X')
@@ -184,17 +193,20 @@ def main(args=None):
     rclpy.init(args=args)
     imu_listener = ImuListener()
 
-    # Start the plotting thread
-    plot_thread = threading.Thread(target=plot_data, args=(imu_listener,))
-    plot_thread.start()
+    # Start ROS spinning in a separate thread
+    ros_thread = threading.Thread(target=rclpy.spin, args=(imu_listener,))
+    ros_thread.start()
 
-    # Spin the node to process callbacks
-    rclpy.spin(imu_listener)
+    try:
+        # Run plotting in main thread (to avoid GUI issues)
+        plot_data(imu_listener)
+    except KeyboardInterrupt:
+        print("Exiting...")
 
-    # Clean up and shutdown
+    # Shutdown
     imu_listener.destroy_node()
     rclpy.shutdown()
-    plot_thread.join()
+    ros_thread.join()
 
 if __name__ == '__main__':
     main()

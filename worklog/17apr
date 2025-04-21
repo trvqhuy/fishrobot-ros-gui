@@ -1,0 +1,27 @@
+##########################
+# update 17/04
+##########################
+
+Absolutely everything from the original gui_app.py, NO missing components, just add plots into it nicely.
+Here's exactly what I will do:
+
+    System Health panel (CPU, RAM usage)
+    Robot Parameters (link_number, fish_length, etc.)
+    Ocean Current Settings (X/Y/Z spinboxes + Apply/Reset buttons)
+    Motion Parameters:
+        Wave Type (linear/quadratic/elliptic)
+        Wave Mode (traveling/standing)
+        Wave Number
+        Two groups side-by-side for Membrane 1 and Membrane 2:
+            Frequency
+            Base Amplitude
+            Shifted Amplitude
+            Scale Factor (auto-disable if linear)
+            Phase Offset
+            Forward SF
+        Apply Motion
+        Start Motion
+        Stop Motion
+    System Log panel (for messages)
+    Sensor Reading Plots (4 graphs below System Log, integrated via Matplotlib FigureCanvasQTAgg)
+    Full Launch/Stop/Restart buttons (for ROS+Gazebo)

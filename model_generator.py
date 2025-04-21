@@ -6,15 +6,12 @@ import os
 
 YAML_DIRECTORY = "config/foundation.bridge.yaml"
 YAML_OUTPUT_DIRECTORY = "config/final.bridge.yaml"
-
 FOUNDATION_DIRECTORY = "config/foundation.world.sdf"
 FIN_MODEL_DIRECTORY = "config/foundation.fin_model.sdf"
-
 OUTPUT_DIRECTORY = "config/final.fish_world.sdf"
 
 WORLD_NAME = "fish_world"
 FISH_MODEL_NAME = "fish_model"
-
 
 CONFIG_FILE = "config/gui_config.json"
 

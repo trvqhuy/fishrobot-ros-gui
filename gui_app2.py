@@ -1,19 +1,25 @@
-import rclpy
-from rclpy.node import Node
-from sensor_msgs.msg import Imu
-from geometry_msgs.msg import PoseArray
-import threading
-import csv
-import os
-import time
 import sys
 import json
 import time
 import subprocess
 import psutil
 import pyqtgraph as pg
+import threading
+import csv
+import os
+
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtGui import QFont
+
+# ROS2 imports
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import Imu
+from geometry_msgs.msg import PoseArray
+
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
 
 CONFIG_FILE = "config/gui_config.json"
 
@@ -25,121 +31,90 @@ DEFAULTS = {
     "membrance_length": 1.096,
 }
 
-class DataRecorder(Node):
+# ===== Sensor Node Class (copied from sensor_reading.py) =====
+class ImuListener(Node):
     def __init__(self):
-        super().__init__('data_recorder')
-        self.subscription = self.create_subscription(
+        super().__init__('imu_listener_gui')
+        self.subscription_pose = self.create_subscription(
             PoseArray,
             '/world/fish_world/dynamic_pose/info',
-            self.pose_callback,
-            10
-        )
-        self.recording = False
-        self.file = None
-        self.writer = None
-        self.start_time = None
-        self.last_positions = None
-        self.last_orientations = None
-        self.last_time = None
+            self.listener_callback_pose,
+            10)
+        self.pos_times = []
+        self.orientations = {'x': [], 'y': [], 'z': [], 'w': []}
+        self.angular_velocities = {'x': [], 'y': [], 'z': []}
+        self.positions = {'x': [], 'y': [], 'z': []}
+        self.linear_velocities = {'x': [], 'y': [], 'z': []}
 
-    def get_new_file_path(self, base_path='data.csv'):
-        if not os.path.exists(base_path):
-            return base_path
-        counter = 1
-        while True:
-            new_path = f"{os.path.splitext(base_path)[0]}_{counter}.csv"
-            if not os.path.exists(new_path):
-                return new_path
-            counter += 1
-
-    def start_recording(self):
-        if not self.recording:
-            file_path = self.get_new_file_path()
-            self.file = open(file_path, mode='w', newline='')
-            self.writer = csv.writer(self.file)
-            self.writer.writerow([
-                'Time (seconds)', 
-                'Orientation X', 'Orientation Y', 'Orientation Z',
-                'Angular Velocity X', 'Angular Velocity Y', 'Angular Velocity Z',
-                'Position X', 'Position Y', 'Position Z',
-                'Linear Velocity X', 'Linear Velocity Y', 'Linear Velocity Z'
-            ])
-            self.start_time = time.time()
-            self.last_positions = None
-            self.last_orientations = None
-            self.last_time = None
-            self.recording = True
-
-    def stop_recording(self):
-        if self.recording:
-            if self.file:
-                self.file.close()
-            self.file = None
-            self.writer = None
-            self.recording = False
-
-    def pose_callback(self, msg):
-        if not self.recording or self.writer is None:
-            return
-
-        pose = msg.poses[0]
+    def listener_callback_pose(self, msg):
         current_time = time.time()
-        elapsed = current_time - self.start_time
+        self.pos_times.append(current_time)
+        pose = msg.poses[0]
+        self.positions['x'].append(pose.position.x)
+        self.positions['y'].append(pose.position.y)
+        self.positions['z'].append(pose.position.z)
+        self.orientations['x'].append(pose.orientation.x)
+        self.orientations['y'].append(pose.orientation.y)
+        self.orientations['z'].append(pose.orientation.z)
+        self.orientations['w'].append(pose.orientation.w)
 
-        pos_x, pos_y, pos_z = pose.position.x, pose.position.y, pose.position.z
-        ori_x, ori_y, ori_z, ori_w = pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w
+        low_pass_alpha = 0.1
+        derivative_num = 10
 
-        if self.last_positions is not None and self.last_time is not None:
-            dt = current_time - self.last_time
-            vx = (pos_x - self.last_positions[0]) / dt
-            vy = (pos_y - self.last_positions[1]) / dt
-            vz = (pos_z - self.last_positions[2]) / dt
-            wx = (ori_x - self.last_orientations[0]) / dt
-            wy = (ori_y - self.last_orientations[1]) / dt
-            wz = (ori_z - self.last_orientations[2]) / dt
+        if len(self.positions['x']) > derivative_num:
+            dt = current_time - self.pos_times[-1-derivative_num]
+            dx = self.positions['x'][-1] - self.positions['x'][-1-derivative_num]
+            dy = self.positions['y'][-1] - self.positions['y'][-1-derivative_num]
+            dz = self.positions['z'][-1] - self.positions['z'][-1-derivative_num]
+            vx = dx / dt * low_pass_alpha + self.linear_velocities['x'][-1] * (1 - low_pass_alpha)
+            vy = dy / dt * low_pass_alpha + self.linear_velocities['y'][-1] * (1 - low_pass_alpha)
+            vz = dz / dt * low_pass_alpha + self.linear_velocities['z'][-1] * (1 - low_pass_alpha)
+            self.linear_velocities['x'].append(vx)
+            self.linear_velocities['y'].append(vy)
+            self.linear_velocities['z'].append(vz)
+
+            d_orientation_x = self.orientations['x'][-1] - self.orientations['x'][-1-derivative_num]
+            d_orientation_y = self.orientations['y'][-1] - self.orientations['y'][-1-derivative_num]
+            d_orientation_z = self.orientations['z'][-1] - self.orientations['z'][-1-derivative_num]
+            angular_velocity_x = d_orientation_x / dt * low_pass_alpha + self.angular_velocities['x'][-1] * (1 - low_pass_alpha)
+            angular_velocity_y = d_orientation_y / dt * low_pass_alpha + self.angular_velocities['y'][-1] * (1 - low_pass_alpha)
+            angular_velocity_z = d_orientation_z / dt * low_pass_alpha + self.angular_velocities['z'][-1] * (1 - low_pass_alpha)
+            self.angular_velocities['x'].append(angular_velocity_x)
+            self.angular_velocities['y'].append(angular_velocity_y)
+            self.angular_velocities['z'].append(angular_velocity_z)
         else:
-            vx = vy = vz = 0.0
-            wx = wy = wz = 0.0
+            self.linear_velocities['x'].append(0.0)
+            self.linear_velocities['y'].append(0.0)
+            self.linear_velocities['z'].append(0.0)
+            self.angular_velocities['x'].append(0.0)
+            self.angular_velocities['y'].append(0.0)
+            self.angular_velocities['z'].append(0.0)
 
-        self.last_positions = (pos_x, pos_y, pos_z)
-        self.last_orientations = (ori_x, ori_y, ori_z)
-        self.last_time = current_time
-
-        self.writer.writerow([
-            elapsed,
-            ori_x, ori_y, ori_z,
-            wx, wy, wz,
-            pos_x, pos_y, pos_z,
-            vx, vy, vz
-        ])
-
+# ===== GUI Class (your original GUI, extended carefully) =====
 class FishSimLauncher(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("🐟 Fish Robot Simulator Launcher")
-        self.setWindowIcon(QtGui.QIcon())  # Add icon if needed
-        self.resize(800, 600)
+        self.setWindowIcon(QtGui.QIcon())  
+        self.resize(1200, 700)
         self.params = DEFAULTS.copy()
         self.ros_proc = None
         self.gz_proc = None
-        self.motion_proc = None  # Track motion publisher process
-        
-        rclpy.init()
-        self.data_recorder = DataRecorder()
-        self.data_thread = threading.Thread(target=rclpy.spin, args=(self.data_recorder,), daemon=True)
-        self.data_thread.start()
+        self.motion_proc = None
+        self.plot_thread = None
+        self.sensor_node = None
 
         self.init_ui()
-        self.update_interval()  # ← Ensures selected_interval is initialized correctly
+        self.update_interval()
         self.load_config()
         self.start_health_monitor()
 
-        # Data buffers for graph
-        self.cpu_data = []
-        self.ram_data = []
-        self.time_data = []
-        self.start_time = int(time.time())  # Initialize start_time here
-        
+        # ROS2 Init
+        rclpy.init()
+        self.sensor_node = ImuListener()
+        self.start_plotting()
+        self.start_csv_logging()
+
 
     def update_interval(self):
         minutes = int(self.interval_selector.currentText().split()[0])
@@ -149,6 +124,7 @@ class FishSimLauncher(QtWidgets.QWidget):
         main_layout = QtWidgets.QVBoxLayout()
 
         # === TOP LAYOUT: SYSTEM HEALTH + ROBOT PARAMETERS ===
+        # (no change to this section...)
         top_layout = QtWidgets.QHBoxLayout()  # Create a horizontal layout for both groups
 
         # SYSTEM HEALTH
@@ -345,23 +321,40 @@ class FishSimLauncher(QtWidgets.QWidget):
         # Add the top_layout to the main_layout
         main_layout.addLayout(top_layout)
 
-        # === OUTPUT + MOTION PANEL ===
+        # (... your top layout code here ...)
+        
+        # === OUTPUT + MOTION + PLOT PANEL ===
         bottom_layout = QtWidgets.QHBoxLayout()
 
         # Log Panel
         log_group = QtWidgets.QGroupBox("System Log")
         log_layout = QtWidgets.QVBoxLayout()
-
         self.output = QtWidgets.QTextEdit()
         self.output.setReadOnly(True)
         self.output.setStyleSheet("background-color: #f0f0f0;")
-        self.output.setMinimumHeight(200)
-
+        self.output.setMinimumHeight(150)
         log_layout.addWidget(self.output)
         log_group.setLayout(log_layout)
+        bottom_layout.addWidget(log_group, 1)
 
-        bottom_layout.addWidget(log_group, 2)  # takes 2/3 of space
+        # Plots Panel
+        plot_group = QtWidgets.QGroupBox("Real-Time Plots")
+        plot_layout = QtWidgets.QVBoxLayout()
+        self.plot_widget = pg.GraphicsLayoutWidget()
+        self.plot_orientation = self.plot_widget.addPlot(title="Orientation XYZ")
+        self.plot_widget.nextRow()
+        self.plot_position = self.plot_widget.addPlot(title="Position XYZ")
+        self.plot_widget.nextRow()
+        self.plot_velocity = self.plot_widget.addPlot(title="Linear Velocity XYZ")
+        self.plot_widget.nextRow()
+        self.plot_angular = self.plot_widget.addPlot(title="Angular Velocity XYZ")
+        plot_layout.addWidget(self.plot_widget)
+        plot_group.setLayout(plot_layout)
+        bottom_layout.addWidget(plot_group, 2)
 
+        main_layout.addLayout(bottom_layout)
+        self.setLayout(main_layout)
+        
         # === FISH MOTION CONTROL PANEL ===
         motion_group = QtWidgets.QGroupBox("Fish Motion Parameters")
         motion_layout = QtWidgets.QVBoxLayout()
@@ -440,8 +433,8 @@ class FishSimLauncher(QtWidgets.QWidget):
 
         # Connect buttons to their functions
         self.apply_motion_btn.clicked.connect(self.save_motion_config)
-        self.launch_motion_btn.clicked.connect(self.start_recording_and_launch_motion)
-        self.stop_motion_btn.clicked.connect(self.stop_recording_and_stop_motion)
+        self.launch_motion_btn.clicked.connect(self.launch_motion_publisher)
+        self.stop_motion_btn.clicked.connect(self.stop_motion)
         self.reset_fish_btn.clicked.connect(self.reset_fish_model)  # ⬅️ CONNECT new function
 
         # Initially disable some buttons
@@ -463,6 +456,54 @@ class FishSimLauncher(QtWidgets.QWidget):
 
         self.setLayout(main_layout)
 
+    def start_plotting(self):
+        self.plot_thread = threading.Thread(target=self.update_plot, daemon=True)
+        self.plot_thread.start()
+
+    def update_plot(self):
+        while rclpy.ok():
+            rclpy.spin_once(self.sensor_node, timeout_sec=0.01)
+            times = np.array(self.sensor_node.pos_times)
+            if len(times) == 0:
+                time.sleep(0.1)
+                continue
+            times -= times[0]
+
+            def safe_data(d, key):
+                return np.array(d.get(key, []))
+
+            # Update plots
+            self.plot_orientation.clear()
+            self.plot_position.clear()
+            self.plot_velocity.clear()
+            self.plot_angular.clear()
+
+            self.plot_orientation.plot(times, safe_data(self.sensor_node.orientations, 'x'), pen='r', name='x')
+            self.plot_orientation.plot(times, safe_data(self.sensor_node.orientations, 'y'), pen='g', name='y')
+            self.plot_orientation.plot(times, safe_data(self.sensor_node.orientations, 'z'), pen='b', name='z')
+
+            self.plot_position.plot(times, safe_data(self.sensor_node.positions, 'x'), pen='r')
+            self.plot_position.plot(times, safe_data(self.sensor_node.positions, 'y'), pen='g')
+            self.plot_position.plot(times, safe_data(self.sensor_node.positions, 'z'), pen='b')
+
+            self.plot_velocity.plot(times, safe_data(self.sensor_node.linear_velocities, 'x'), pen='r')
+            self.plot_velocity.plot(times, safe_data(self.sensor_node.linear_velocities, 'y'), pen='g')
+            self.plot_velocity.plot(times, safe_data(self.sensor_node.linear_velocities, 'z'), pen='b')
+
+            self.plot_angular.plot(times, safe_data(self.sensor_node.angular_velocities, 'x'), pen='r')
+            self.plot_angular.plot(times, safe_data(self.sensor_node.angular_velocities, 'y'), pen='g')
+            self.plot_angular.plot(times, safe_data(self.sensor_node.angular_velocities, 'z'), pen='b')
+
+            time.sleep(0.1)  # Update every 100ms
+
+    def log(self, message):
+        self.output.append(f"[{time.strftime('%H:%M:%S')}] {message}")
+        self.output.ensureCursorVisible()
+
+    def closeEvent(self, event):
+        self.stop_motion()
+        rclpy.shutdown()
+        event.accept()
     def reset_fish_model(self):
         self.log("🔄 Resetting fish model position and recalibrating camera...")
         
@@ -619,6 +660,49 @@ class FishSimLauncher(QtWidgets.QWidget):
         else:
             self.log("❌ Failed to apply ocean current.")
             self.log(result.stderr)
+            
+    def start_csv_logging(self):
+        self.csv_thread = threading.Thread(target=self.update_csv_log, daemon=True)
+        self.csv_thread.start()
+
+    def update_csv_log(self):
+        base_filename = f"data/fish_robot_log_{int(time.time())}.csv"
+        os.makedirs("data", exist_ok=True)
+        with open(base_filename, mode='w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow([
+                'Time (seconds)', 
+                'Orientation X', 'Orientation Y', 'Orientation Z', 
+                'Angular Velocity X', 'Angular Velocity Y', 'Angular Velocity Z',
+                'Position X', 'Position Y', 'Position Z',
+                'Linear Velocity X', 'Linear Velocity Y', 'Linear Velocity Z'
+            ])
+        
+        while rclpy.ok():
+            if not self.sensor_node.pos_times:
+                time.sleep(1.0)
+                continue
+
+            latest_idx = -1
+            start_time = self.sensor_node.pos_times[0]
+            t = self.sensor_node.pos_times[latest_idx] - start_time
+
+            writer.writerow([
+                t,
+                self.sensor_node.orientations['x'][latest_idx],
+                self.sensor_node.orientations['y'][latest_idx],
+                self.sensor_node.orientations['z'][latest_idx],
+                self.sensor_node.angular_velocities['x'][latest_idx],
+                self.sensor_node.angular_velocities['y'][latest_idx],
+                self.sensor_node.angular_velocities['z'][latest_idx],
+                self.sensor_node.positions['x'][latest_idx],
+                self.sensor_node.positions['y'][latest_idx],
+                self.sensor_node.positions['z'][latest_idx],
+                self.sensor_node.linear_velocities['x'][latest_idx],
+                self.sensor_node.linear_velocities['y'][latest_idx],
+                self.sensor_node.linear_velocities['z'][latest_idx],
+            ])
+            time.sleep(1.0)  # Log every second
 
     def log(self, message):
         self.output.append(f"[{time.strftime('%H:%M:%S')}] {message}")
@@ -786,26 +870,11 @@ class FishSimLauncher(QtWidgets.QWidget):
         # time_axis.setTickSpacing(10, 10)
         # time_axis.setLabel("Time (s)", units="s")
         # time_axis.setTicks([[(t, str(t)) for t in self.time_data[::10]]])  # Show every 10th second
-        
-    def start_recording_and_launch_motion(self):
-        self.save_motion_config()
-        self.log("🚀 Launching fish motion publisher and starting recording...")
-        self.data_recorder.start_recording()
-        self.launch_motion_publisher()
 
-    def stop_recording_and_stop_motion(self):
-        self.log("🛑 Stopping recording and stopping motion publisher...")
-        self.data_recorder.stop_recording()
-        self.stop_motion()
-def closeEvent(self, event):
-    self.data_recorder.stop_recording()
-    rclpy.shutdown()
-    self.data_thread.join()
-    event.accept()
+
+# ===== Main Entry =====
 def main():
     app = QtWidgets.QApplication(sys.argv)
-
-    # Apply Ubuntu default font
     app.setFont(QFont("Ubuntu", 10))
     app.setStyle("Fusion")
     win = FishSimLauncher()
@@ -814,3 +883,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

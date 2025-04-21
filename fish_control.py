@@ -102,10 +102,12 @@ class MinimalPublisher(Node):
                 phi2 = 2 * np.pi * m2["frequency"] * t + 2 * np.pi * (i * wave_num / self.link_number) + m2["phase_offset"]
 
                 if wave_mode == "standing":
-                    wave1 = m1["shifted_amplitude"] * np.sin(2 * np.pi * m1["frequency"] * t + m1["phase_offset"]) + amp1 * np.sin(phi1)
-                    wave2 = m2["shifted_amplitude"] * np.sin(2 * np.pi * m2["frequency"] * t + m2["phase_offset"]) + amp2 * np.sin(phi2)
-                    circ1 = circ_amp1 * np.cos(2 * np.pi * m1["frequency"] * t + m1["phase_offset"])
-                    circ2 = circ_amp2 * np.cos(2 * np.pi * m2["frequency"] * t + m2["phase_offset"])
+                    phi1 = 2 * np.pi * (i * wave_num / self.link_number) + m1["phase_offset"]
+                    phi2 = 2 * np.pi * (i * wave_num / self.link_number) + m2["phase_offset"]
+                    wave1 = amp1 * np.sin(phi1) - m1["shifted_amplitude"] * np.sin(2 * np.pi * m1["frequency"] * t)
+                    wave2 = amp2 * np.sin(phi2) - m2["shifted_amplitude"] * np.sin(2 * np.pi * m2["frequency"] * t)
+                    circ1 = circ_amp1 * np.sin(phi1 - np.pi / 2)
+                    circ2 = circ_amp2 * np.sin(phi2 - np.pi / 2)
                 else:
                     wave1 = amp1 * np.sin(phi1) - m1["shifted_amplitude"]
                     wave2 = amp2 * np.sin(phi2) - m2["shifted_amplitude"]

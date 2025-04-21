@@ -1,0 +1,15 @@
+##########################
+# update 18/04
+##########################
+
+fixed gui_app.py (ignore gui_app2.py)
+
+Now we only have to turn on the GUI (no extra terminal)
+Open a new terminal:
+
+cd /home/maycuaaiz/Desktop/FishRobot-ROS
+/bin/python3 gui_app.py
+
+Choose wave model and parameters
+Press "Launch" > "Apply Motion" > "Start"
+a new data.csv file will be created and start sampling

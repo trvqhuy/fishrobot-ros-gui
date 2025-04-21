@@ -1,0 +1,16 @@
+##########################
+# update 16/04
+##########################
+
+Terminal 1: 
+cd /home/maycuaaiz/Desktop/FishRobot-ROS
+/bin/python3 sensor_reading.py
+
+Terminal 2:
+cd /home/maycuaaiz/Desktop/FishRobot-ROS
+/bin/python3 gui_app.py
+
+Choose wave model and parameters
+Press "Launch" > "Apply Motion" > "Start"
+Plots will appear automatically
+

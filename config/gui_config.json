@@ -6,11 +6,11 @@
     "membrance_length": 1.1,
     "membrane_1_on": true,
     "membrane_2_on": true,
-    "wave_type": "elliptic",
+    "wave_type": "quadratic",
     "wave_mode": "traveling",
-    "wave_number": 2.0,
+    "wave_number": 0.8,
     "membrane_1": {
-        "frequency": 0.5,
+        "frequency": 0.2,
         "base_amplitude": 30.0,
         "shifted_amplitude": 0.0,
         "scale_factor": 0.5,
@@ -18,7 +18,7 @@
         "phase_offset": 0.0
     },
     "membrane_2": {
-        "frequency": 0.5,
+        "frequency": 0.2,
         "base_amplitude": 30.0,
         "shifted_amplitude": 0.0,
         "scale_factor": 0.5,
