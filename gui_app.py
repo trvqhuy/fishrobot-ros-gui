@@ -14,6 +14,8 @@ import psutil
 import pyqtgraph as pg
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtGui import QFont
+import multiprocessing as mp
+from queue import Empty
 
 CONFIG_FILE = "config/gui_config.json"
 
@@ -25,8 +27,9 @@ DEFAULTS = {
     "membrance_length": 1.096,
 }
 
+
 class DataRecorder(Node):
-    def __init__(self):
+    def __init__(self, gui=None, plot_queue=None):
         super().__init__('data_recorder')
         self.subscription = self.create_subscription(
             PoseArray,
@@ -42,7 +45,20 @@ class DataRecorder(Node):
         self.last_orientations = None
         self.last_time = None
 
-    def get_new_file_path(self, base_path='data.csv'):
+        # Buffers for CSV recording
+        self.time_buffer = []
+        self.position_buffer = {'x': [], 'y': [], 'z': []}
+        self.orientation_buffer = {'x': [], 'y': [], 'z': []}
+        self.linear_velocity_buffer = {'x': [], 'y': [], 'z': []}
+        self.angular_velocity_buffer = {'x': [], 'y': [], 'z': []}
+        
+        self.low_pass_alpha = 0.05
+        self.derivative_num = 10
+        self.gui = gui
+        self.plot_queue = plot_queue
+        self.max_buffer_size = 999999999  # ~30 seconds at 10 Hz
+
+    def get_new_file_path(self, base_path='data/simulation.csv'):
         if not os.path.exists(base_path):
             return base_path
         counter = 1
@@ -69,6 +85,13 @@ class DataRecorder(Node):
             self.last_orientations = None
             self.last_time = None
             self.recording = True
+            self.time_buffer.clear()
+            for buf in [self.position_buffer, self.orientation_buffer, 
+                       self.linear_velocity_buffer, self.angular_velocity_buffer]:
+                for axis in ['x', 'y', 'z']:
+                    buf[axis].clear()
+            if self.gui:
+                self.gui.log(f"💾 Saving fish trajectory to {file_path}")
 
     def stop_recording(self):
         if self.recording:
@@ -79,11 +102,11 @@ class DataRecorder(Node):
             self.recording = False
 
     def pose_callback(self, msg):
+        current_time = time.time()
         if not self.recording or self.writer is None:
             return
 
         pose = msg.poses[0]
-        current_time = time.time()
         elapsed = current_time - self.start_time
 
         pos_x, pos_y, pos_z = pose.position.x, pose.position.y, pose.position.z
@@ -91,12 +114,18 @@ class DataRecorder(Node):
 
         if self.last_positions is not None and self.last_time is not None:
             dt = current_time - self.last_time
-            vx = (pos_x - self.last_positions[0]) / dt
-            vy = (pos_y - self.last_positions[1]) / dt
-            vz = (pos_z - self.last_positions[2]) / dt
-            wx = (ori_x - self.last_orientations[0]) / dt
-            wy = (ori_y - self.last_orientations[1]) / dt
-            wz = (ori_z - self.last_orientations[2]) / dt
+            vx = (pos_x - self.last_positions[0]) / dt * self.low_pass_alpha + \
+                 (self.linear_velocity_buffer['x'][-1] if self.linear_velocity_buffer['x'] else 0.0) * (1 - self.low_pass_alpha)
+            vy = (pos_y - self.last_positions[1]) / dt * self.low_pass_alpha + \
+                 (self.linear_velocity_buffer['y'][-1] if self.linear_velocity_buffer['y'] else 0.0) * (1 - self.low_pass_alpha)
+            vz = (pos_z - self.last_positions[2]) / dt * self.low_pass_alpha + \
+                 (self.linear_velocity_buffer['z'][-1] if self.linear_velocity_buffer['z'] else 0.0) * (1 - self.low_pass_alpha)
+            wx = (ori_x - self.last_orientations[0]) / dt * self.low_pass_alpha + \
+                 (self.angular_velocity_buffer['x'][-1] if self.angular_velocity_buffer['x'] else 0.0) * (1 - self.low_pass_alpha)
+            wy = (ori_y - self.last_orientations[1]) / dt * self.low_pass_alpha + \
+                 (self.angular_velocity_buffer['y'][-1] if self.angular_velocity_buffer['y'] else 0.0) * (1 - self.low_pass_alpha)
+            wz = (ori_z - self.last_orientations[2]) / dt * self.low_pass_alpha + \
+                 (self.angular_velocity_buffer['z'][-1] if self.angular_velocity_buffer['z'] else 0.0) * (1 - self.low_pass_alpha)
         else:
             vx = vy = vz = 0.0
             wx = wy = wz = 0.0
@@ -113,11 +142,45 @@ class DataRecorder(Node):
             vx, vy, vz
         ])
 
+        self.time_buffer.append(elapsed)
+        self.position_buffer['x'].append(pos_x)
+        self.position_buffer['y'].append(pos_y)
+        self.position_buffer['z'].append(pos_z)
+        self.orientation_buffer['x'].append(ori_x)
+        self.orientation_buffer['y'].append(ori_y)
+        self.orientation_buffer['z'].append(ori_z)
+        self.linear_velocity_buffer['x'].append(vx)
+        self.linear_velocity_buffer['y'].append(vy)
+        self.linear_velocity_buffer['z'].append(vz)
+        self.angular_velocity_buffer['x'].append(wx)
+        self.angular_velocity_buffer['y'].append(wy)
+        self.angular_velocity_buffer['z'].append(wz)
+
+        if len(self.time_buffer) > self.max_buffer_size:
+            self.time_buffer.pop(0)
+            for buf in [self.position_buffer, self.orientation_buffer, 
+                       self.linear_velocity_buffer, self.angular_velocity_buffer]:
+                for axis in ['x', 'y', 'z']:
+                    buf[axis].pop(0)
+
+        if self.plot_queue:
+            try:
+                self.plot_queue.put_nowait({
+                    'time': elapsed,
+                    'position': {'x': pos_x, 'y': pos_y, 'z': pos_z},
+                    'orientation': {'x': ori_x, 'y': ori_y, 'z': ori_z},
+                    'linear_velocity': {'x': vx, 'y': vy, 'z': vz},
+                    'angular_velocity': {'x': wx, 'y': wy, 'z': wz}
+                })
+            except mp.queues.Full:
+                pass
+
+
 class FishSimLauncher(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("🐟 Fish Robot Simulator Launcher")
-        self.setWindowIcon(QtGui.QIcon())  # Add icon if needed
+        self.setWindowTitle("Fish Robot Simulator Launcher")
+        self.setWindowIcon(QtGui.QIcon("config/fish_icon.png"))
         self.resize(800, 600)
         self.params = DEFAULTS.copy()
         self.ros_proc = None
@@ -125,11 +188,25 @@ class FishSimLauncher(QtWidgets.QWidget):
         self.motion_proc = None  # Track motion publisher process
         
         rclpy.init()
-        self.data_recorder = DataRecorder()
+        self.data_recorder = DataRecorder(gui=self)
         self.data_thread = threading.Thread(target=rclpy.spin, args=(self.data_recorder,), daemon=True)
         self.data_thread.start()
 
         self.init_ui()
+        # Curves for fish motion plots
+        self.fish_curves = {
+            'orientation': {},
+            'position': {},
+            'angular_velocity': {},
+            'linear_velocity': {}
+        }
+
+        colors = {'x': 'r', 'y': 'g', 'z': 'b'}
+
+        for key in ['orientation', 'position', 'angular_velocity', 'linear_velocity']:
+            for axis in ['x', 'y', 'z']:
+                self.fish_curves[key][axis] = self.fish_plots[key].plot(pen=pg.mkPen(colors[axis], width=2), name=f"{axis.upper()}")
+
         self.update_interval()  # ← Ensures selected_interval is initialized correctly
         self.load_config()
         self.start_health_monitor()
@@ -139,10 +216,17 @@ class FishSimLauncher(QtWidgets.QWidget):
         self.ram_data = []
         self.time_data = []
         self.start_time = int(time.time())  # Initialize start_time here
-        
+
+        self.fish_plot_timer = QtCore.QTimer()
+        self.fish_plot_timer.timeout.connect(self.update_fish_motion_plots)
+        self.fish_plot_timer.start(100)  # Update every 100 ms (10 Hz)
+
+        self.motion_countdown_timer = QtCore.QTimer()
+        self.motion_countdown_timer.timeout.connect(self.update_motion_countdown)
+        self.remaining_motion_time = 0  # in seconds
 
     def update_interval(self):
-        minutes = int(self.interval_selector.currentText().split()[0])
+        minutes = float(self.interval_selector.currentText().split()[0])
         self.selected_interval = minutes * 60
 
     def init_ui(self):
@@ -175,7 +259,7 @@ class FishSimLauncher(QtWidgets.QWidget):
         interval_layout = QtWidgets.QHBoxLayout()
         interval_layout.addWidget(QtWidgets.QLabel("Graph Interval:"))
         self.interval_selector = QtWidgets.QComboBox()
-        self.interval_selector.addItems(["1 min", "5 min", "10 min", "30 min"])
+        self.interval_selector.addItems(["0.5 min", "1 min", "5 min", "10 min", "30 min"])
         self.interval_selector.setCurrentIndex(1)
         self.interval_selector.currentIndexChanged.connect(self.update_interval)
         self.selected_interval = 5 * 60
@@ -207,7 +291,7 @@ class FishSimLauncher(QtWidgets.QWidget):
         # Create curves for CPU and RAM usage
         self.cpu_curve = self.graph_widget.plot(pen=pg.mkPen('r', width=2))  # Red line for CPU
         self.ram_curve = self.graph_widget.plot(pen=pg.mkPen('b', width=2))  # Blue line for RAM
-        
+
         # Add graph widget to health layout
         health_layout.addWidget(self.graph_widget)
         health_group.setLayout(health_layout)
@@ -228,7 +312,7 @@ class FishSimLauncher(QtWidgets.QWidget):
             else:
                 spinbox = QtWidgets.QDoubleSpinBox()
                 spinbox.setDecimals(2)
-                spinbox.setValue(float(value))  # Ensure it's numeric in case of string
+                spinbox.setValue(float(value))
                 spinbox.setRange(0.01, 100.0)
                 if "number" in key:
                     spinbox.setDecimals(0)
@@ -286,11 +370,9 @@ class FishSimLauncher(QtWidgets.QWidget):
         self.stop_button.clicked.connect(self.stop_all)
         self.restart_button.clicked.connect(self.restart_all)
 
-        button_layout.addStretch()
         button_layout.addWidget(self.launch_button)
         button_layout.addWidget(self.stop_button)
         button_layout.addWidget(self.restart_button)
-        button_layout.addStretch()
 
         # ✅ Add buttons to form layout (not directly to group box)
         form_layout.addRow(button_layout)
@@ -298,11 +380,10 @@ class FishSimLauncher(QtWidgets.QWidget):
         param_group.setLayout(form_layout)
         param_group.setMinimumWidth(250)
 
-        # === RIGHT SIDE: Robot + Environment Params in a vertical layout ===
         right_panel_layout = QtWidgets.QVBoxLayout()
-        right_panel_layout.addWidget(param_group)
+        right_panel_layout.addWidget(param_group, 1)
 
-        # ENVIRONMENT PARAMETERS
+        # === ENVIRONMENT PARAMETERS ===
         env_group = QtWidgets.QGroupBox("Ocean Current Settings")
         env_main_layout = QtWidgets.QVBoxLayout()
 
@@ -336,14 +417,44 @@ class FishSimLauncher(QtWidgets.QWidget):
 
         env_main_layout.addLayout(button_layout)
         env_group.setLayout(env_main_layout)
-        right_panel_layout.addWidget(env_group)
 
-        # Add both system health and right panel to top layout
+        # === CAMERA MONITOR GROUP ===
+        camera_group = QtWidgets.QGroupBox("Camera Monitor")
+        camera_layout = QtWidgets.QVBoxLayout()
+
+        # View Mode selection on the same row
+        view_mode_layout = QtWidgets.QHBoxLayout()
+        view_mode_layout.addWidget(QtWidgets.QLabel("View Mode:"))
+        self.camera_mode_selector = QtWidgets.QComboBox()
+        self.camera_mode_selector.addItems(["Global", "Horizontal", "Vertical"])
+        view_mode_layout.addWidget(self.camera_mode_selector)
+        camera_layout.addLayout(view_mode_layout)
+        self.camera_mode_selector.currentTextChanged.connect(self.update_camera_view_mode)
+
+        # Tracking toggle button
+        self.camera_tracking_btn = QtWidgets.QPushButton("Start Tracking")
+        self.camera_tracking_btn.clicked.connect(self.toggle_camera_tracking_mode)
+        camera_layout.addWidget(self.camera_tracking_btn)
+
+        camera_group.setLayout(camera_layout)
+
+        # === Combine Ocean Current + Camera Monitor in 1 horizontal layout ===
+        env_camera_row = QtWidgets.QHBoxLayout()
+        env_camera_row.addWidget(env_group)
+        env_camera_row.addWidget(camera_group)
+
+        # === Wrap into right panel layout ===
+        right_panel_layout = QtWidgets.QVBoxLayout()
+        right_panel_layout.addWidget(param_group)
+        right_panel_layout.addLayout(env_camera_row)
+
+        # === Add to top layout ===
         top_layout.addWidget(health_group)
         top_layout.addLayout(right_panel_layout)
 
-        # Add the top_layout to the main_layout
+        # === Final main layout ===
         main_layout.addLayout(top_layout)
+
 
         # === OUTPUT + MOTION PANEL ===
         bottom_layout = QtWidgets.QHBoxLayout()
@@ -430,28 +541,28 @@ class FishSimLauncher(QtWidgets.QWidget):
         membrane_row.addWidget(create_membrane_group("Membrane 2", "m2"))
         motion_layout.addLayout(membrane_row)
 
-        # === Row 4: Apply/Launch/Stop/Reset buttons ===
+        # === Row 4: Launch/Stop/Reset/Camera Track Toggle buttons ===
         motion_btns = QtWidgets.QHBoxLayout()
 
-        self.apply_motion_btn = QtWidgets.QPushButton("Apply Motion")
-        self.launch_motion_btn = QtWidgets.QPushButton("Start")
-        self.stop_motion_btn = QtWidgets.QPushButton("Stop")
-        self.reset_fish_btn = QtWidgets.QPushButton("Reset Position")  # ⬅️ NEW BUTTON
+        self.launch_motion_btn = QtWidgets.QPushButton("Start Motion")
+        self.stop_motion_btn = QtWidgets.QPushButton("Stop Motion")
+        self.reset_fish_btn = QtWidgets.QPushButton("Reset Position")
+        # self.track_camera_btn = QtWidgets.QPushButton("Start Tracking")  # ⬅️ NEW TOGGLE BUTTON (initial text)
 
         # Connect buttons to their functions
-        self.apply_motion_btn.clicked.connect(self.save_motion_config)
         self.launch_motion_btn.clicked.connect(self.start_recording_and_launch_motion)
         self.stop_motion_btn.clicked.connect(self.stop_recording_and_stop_motion)
-        self.reset_fish_btn.clicked.connect(self.reset_fish_model)  # ⬅️ CONNECT new function
+        self.reset_fish_btn.clicked.connect(self.reset_fish_model)
+        # self.track_camera_btn.clicked.connect(self.toggle_camera_tracking)  # ⬅️ TOGGLE FUNCTION
 
         # Initially disable some buttons
         self.stop_motion_btn.setEnabled(False)
 
         # Add all buttons to the layout
-        motion_btns.addWidget(self.apply_motion_btn)
         motion_btns.addWidget(self.launch_motion_btn)
         motion_btns.addWidget(self.stop_motion_btn)
-        motion_btns.addWidget(self.reset_fish_btn)  # ⬅️ ADD new button
+        motion_btns.addWidget(self.reset_fish_btn)
+        # motion_btns.addWidget(self.track_camera_btn)
 
         motion_layout.addLayout(motion_btns)
 
@@ -461,11 +572,163 @@ class FishSimLauncher(QtWidgets.QWidget):
         # Add to main layout
         main_layout.addLayout(bottom_layout)
 
+        # === FISH MOTION REAL-TIME PLOTS ===
+        fish_motion_group = QtWidgets.QGroupBox("Fish Motion - Real-time Data")
+        fish_motion_main_layout = QtWidgets.QVBoxLayout()
+
+        # 1st row: all 4 plots side-by-side
+        fish_motion_plots_layout = QtWidgets.QHBoxLayout()
+
+        self.fish_plots = {}
+
+        def create_plot(title, y_label):
+            plot = pg.PlotWidget()
+            plot.setTitle(title)
+            # plot.setLabel('left', y_label)
+            # plot.setLabel('bottom', 'Time (s)')
+            # plot.addLegend()
+            plot.setBackground('w')
+            plot.showGrid(x=True, y=True, alpha=0.3)
+            # plot.setFixedWidth(320)  # Make plots fixed width for nice alignment
+            plot.setMinimumHeight(280)
+            plot.setMinimumWidth(280)
+            return plot
+
+        # Create 4 horizontally distributed plots
+        self.fish_plots['orientation'] = create_plot("Orientation vs Time", "Orientation (rad)")
+        self.fish_plots['position'] = create_plot("Position vs Time", "Position (m)")
+        self.fish_plots['angular_velocity'] = create_plot("Angular Velocity vs Time", "Angular Velocity (rad/s)")
+        self.fish_plots['linear_velocity'] = create_plot("Linear Velocity vs Time", "Velocity (m/s)")
+
+        for key in ['orientation', 'position', 'angular_velocity', 'linear_velocity']:
+            fish_motion_plots_layout.addWidget(self.fish_plots[key])
+
+        fish_motion_main_layout.addLayout(fish_motion_plots_layout)
+
+        fish_motion_group.setLayout(fish_motion_main_layout)
+
+        # Add it into your main layout
+        main_layout.addWidget(fish_motion_group)
+
         self.setLayout(main_layout)
+
+        # Internal tracking state
+        self.tracking_enabled = False  # ⬅️ Add this somewhere in your __init__ or setup
+
+    def update_fish_motion_plots(self):
+        # Only update if recording
+        if not self.data_recorder.recording:
+            return
+        
+        recorder = self.data_recorder
+        time_data = recorder.time_buffer
+
+        if len(time_data) < 2:
+            return
+
+        for key, buffer in [
+            ('orientation', recorder.orientation_buffer),
+            ('position', recorder.position_buffer),
+            ('angular_velocity', recorder.angular_velocity_buffer),
+            ('linear_velocity', recorder.linear_velocity_buffer)
+        ]:
+            for axis in ['x', 'y', 'z']:
+                self.fish_curves[key][axis].setData(time_data, buffer[axis])
+
+        # Optional: auto-scroll x-axis
+        for plot in self.fish_plots.values():
+            plot.setXRange(max(0, time_data[-1] - 30), time_data[-1])  # Show last 30 seconds
+
+    def update_camera_view_mode(self, new_mode):
+        if getattr(self, 'tracking_enabled', False):
+            self.log(f"🔄 Updating camera view to [{new_mode}] mode...")
+
+            offset = {
+                "Global": (-1.5, -1.5, 2.0),
+                "Horizontal": (-1.0, 0.0, 0.0),
+                "Vertical": (0.0, 0.0, 2.0),
+            }.get(new_mode, (-1.5, -1.5, 2.0))
+
+            offset_cmd = (
+                f"source /opt/ros/humble/setup.bash && "
+                f"ign service -s /gui/follow/offset "
+                f"--reqtype ignition.msgs.Vector3d "
+                f"--reptype ignition.msgs.Boolean "
+                f"--timeout 3000 "
+                f"--req 'x: {offset[0]}, y: {offset[1]}, z: {offset[2]}'"
+            )
+
+            result = subprocess.run(offset_cmd, shell=True, executable="/bin/bash", capture_output=True, text=True)
+            if result.returncode == 0:
+                self.log(f"✅ View mode updated to [{new_mode}]")
+            else:
+                self.log(f"❌ Failed to update view mode: {result.stderr}")
+
+    def toggle_camera_tracking_mode(self):
+        selected_mode = self.camera_mode_selector.currentText()
+
+        if not getattr(self, 'tracking_enabled', False):
+            self.log(f"🎯 Activating camera tracking [{selected_mode}]...")
+
+            # Start tracking fish model
+            track_cmd = (
+                "source /opt/ros/humble/setup.bash && "
+                "ign service -s /gui/follow "
+                "--reqtype ignition.msgs.StringMsg "
+                "--reptype ignition.msgs.Boolean "
+                "--timeout 3000 "
+                "--req 'data: \"fish_model\"'"
+            )
+
+            # Choose camera offset by mode
+            offset = {
+                "Global":  (-1.5, -1.5, 2.0),
+                "Horizontal": (-1.0, 0, 0.0),
+                "Vertical": (0.0, 0.0, 2.0),
+            }.get(selected_mode, (-1.5, -1.5, 2.0))
+
+            offset_cmd = (
+                f"source /opt/ros/humble/setup.bash && "
+                f"ign service -s /gui/follow/offset "
+                f"--reqtype ignition.msgs.Vector3d "
+                f"--reptype ignition.msgs.Boolean "
+                f"--timeout 3000 "
+                f"--req 'x: {offset[0]}, y: {offset[1]}, z: {offset[2]}'"
+            )
+
+            result1 = subprocess.run(track_cmd, shell=True, executable="/bin/bash", capture_output=True, text=True)
+            result2 = subprocess.run(offset_cmd, shell=True, executable="/bin/bash", capture_output=True, text=True)
+
+            if result1.returncode == 0 and result2.returncode == 0:
+                self.log(f"✅ Camera now tracking fish [{selected_mode}]")
+                self.camera_tracking_btn.setText("Stop Tracking")
+                self.tracking_enabled = True
+            else:
+                self.log(f"❌ Failed to start tracking: {result1.stderr} {result2.stderr}")
+        else:
+            # Stop tracking
+            self.log("🛑 Deactivating camera tracking...")
+
+            stop_cmd = (
+                "source /opt/ros/humble/setup.bash && "
+                "ign service -s /gui/follow "
+                "--reqtype ignition.msgs.StringMsg "
+                "--reptype ignition.msgs.Boolean "
+                "--timeout 3000 "
+                "--req 'data: \"\"'"
+            )
+
+            result = subprocess.run(stop_cmd, shell=True, executable="/bin/bash", capture_output=True, text=True)
+            if result.returncode == 0:
+                self.log("✅ Camera tracking stopped.")
+                self.camera_tracking_btn.setText("Start Tracking")
+                self.tracking_enabled = False
+            else:
+                self.log(f"❌ Failed to stop tracking: {result.stderr}")
 
     def reset_fish_model(self):
         self.log("🔄 Resetting fish model position and recalibrating camera...")
-        
+
         # Command to reset fish model pose
         reset_pose_cmd = (
             "source /opt/ros/humble/setup.bash && "
@@ -473,15 +736,17 @@ class FishSimLauncher(QtWidgets.QWidget):
             "--reqtype ignition.msgs.Pose "
             "--reptype ignition.msgs.Boolean "
             "--timeout 3000 "
-            "--req 'name: \"fish_model\", position: {x: 0.0, y: 0.0, z: 0.2}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}'"
+            "--req 'name: \"fish_model\", position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}'"
         )
 
         # Command to recalibrate GUI camera pose
         recalib_camera_cmd = (
             "source /opt/ros/humble/setup.bash && "
-            "ign topic -t /gui/camera/pose "
-            "-m ignition.msgs.Pose "
-            "-p 'position: {x: 3.0, y: 0.0, z: 1.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}'"
+            "ign service -s /gui/move_to/pose "
+            "--reqtype ignition.msgs.GUICamera "
+            "--reptype ignition.msgs.Boolean "
+            "--timeout 3000 "
+            "--req 'pose: {position: {x: -1.5, y: -1.5, z: 2.0}, orientation: {x: -0.1, y: 0.2, z: 0.5, w: 1.0}}'"
         )
 
         # Run reset pose
@@ -789,19 +1054,66 @@ class FishSimLauncher(QtWidgets.QWidget):
         
     def start_recording_and_launch_motion(self):
         self.save_motion_config()
-        self.log("🚀 Launching fish motion publisher and starting recording...")
+        self.log("🚀 Launching fish motion publisher and starting recording & real-time plotting...")
+        
+        # === ✨ Reset plots and buffers before starting
+        self.reset_fish_motion_plots()
+
+        # Start fresh recording
         self.data_recorder.start_recording()
         self.launch_motion_publisher()
+
+        # ✨ Setup countdown
+        self.remaining_motion_time = self.selected_interval  # from system health interval
+        self.update_motion_countdown_button_text()
+        self.motion_countdown_timer.start(1000)  # 1000 ms = 1 second
+
+    def update_motion_countdown_button_text(self):
+        self.launch_motion_btn.setText(f"Remaining: {self.remaining_motion_time}s")
+
+    def update_motion_countdown(self):
+        if self.remaining_motion_time > 0:
+            self.remaining_motion_time -= 1
+            self.update_motion_countdown_button_text()
+        else:
+            self.motion_countdown_timer.stop()
+            self.log("🛑 Motion timeout reached, stopping automatically...")
+            self.stop_recording_and_stop_motion()
+
+    def reset_fish_motion_plots(self):
+        self.log("🔄 Resetting fish motion plots and buffers...")
+
+        # Clear data buffers
+        self.data_recorder.time_buffer.clear()
+        for buffer in [
+            self.data_recorder.position_buffer,
+            self.data_recorder.orientation_buffer,
+            self.data_recorder.linear_velocity_buffer,
+            self.data_recorder.angular_velocity_buffer
+        ]:
+            for axis in ['x', 'y', 'z']:
+                buffer[axis].clear()
+
+        # Clear graphical curves
+        for key in self.fish_curves:
+            for axis in self.fish_curves[key]:
+                self.fish_curves[key][axis].clear()
 
     def stop_recording_and_stop_motion(self):
         self.log("🛑 Stopping recording and stopping motion publisher...")
         self.data_recorder.stop_recording()
         self.stop_motion()
-def closeEvent(self, event):
-    self.data_recorder.stop_recording()
-    rclpy.shutdown()
-    self.data_thread.join()
-    event.accept()
+
+        # ✨ Stop countdown timer and reset button text
+        self.motion_countdown_timer.stop()
+        self.launch_motion_btn.setText("Start Motion")
+
+    def closeEvent(self, event):
+        self.data_recorder.stop_recording()
+        rclpy.shutdown()
+        self.data_thread.join()
+        event.accept()
+
 def main():
     app = QtWidgets.QApplication(sys.argv)
 

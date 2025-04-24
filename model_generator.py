@@ -40,7 +40,7 @@ MEMBRANE_2_ON = gui_config.get("membrane_2_on", True)
 # MEMBRANE_1_ON = True
 # MEMBRANE_2_ON = True
 
-FIN_SIZE = [0.005, 0.250, MEMBRANCE_LENGTH*2/LINK_NUMBER]
+FIN_SIZE = [0.005, MEMBRANCE_WIDTH, MEMBRANCE_LENGTH*2/LINK_NUMBER]
 FIN_CIRCULAR_SIZE = [FIN_SIZE[2]/2.0, 0.01]
 
 
@@ -66,16 +66,16 @@ for iter, each_item in enumerate(range(LINK_NUMBER)):
         if each_child.tag == 'pose':
             each_child.attrib['relative_to'] = 'fin_1_%d_circular' % (iter + 1)
     fin_link.find('.//pose').text = (
-        "0.0 0.0 -%f 3.14 0 0" % (FIN_SIZE[1] - MEMBRANCE_WIDTH/2)
+        "0.0 0.0 -%f 3.14 0 0" % (0.2)
     )
     fin_link.find('.//inertial/mass').text = (
-        '%f' % (FIN_SIZE[0] * MEMBRANCE_WIDTH * FIN_SIZE[2] * 1000.0)
+        '%f' % (FIN_SIZE[0] * FIN_SIZE[1] * FIN_SIZE[2] * 1000.0)
     )
     fin_link.find('.//visual/geometry/box/size').text = (
-        '%f %f %f' % (FIN_SIZE[0], FIN_SIZE[2], MEMBRANCE_WIDTH, )
+        '%f %f %f' % (FIN_SIZE[0], FIN_SIZE[2], FIN_SIZE[1], )
     )
     fin_link.find('.//collision/geometry/box/size').text = (
-        '%f %f %f' % (FIN_SIZE[0], FIN_SIZE[2], MEMBRANCE_WIDTH, )
+        '%f %f %f' % (FIN_SIZE[0], FIN_SIZE[2], FIN_SIZE[1], )
     )
 
     fin_joint = fin_mdel_xml.find('joint')
@@ -208,17 +208,18 @@ for iter, each_item in enumerate(range(LINK_NUMBER)):
     for each_child in fin_link:
         if each_child.tag == 'pose':
             each_child.attrib['relative_to'] = 'fin_2_%d_circular' % (iter + 1)
+
     fin_link.find('.//pose').text = (
-        "0 0 %f 0 0 0" % (FIN_SIZE[1] - MEMBRANCE_WIDTH/2)
+        "0.0 0.0 %f 0 0 0" % (0.2)
     )
     fin_link.find('.//inertial/mass').text = (
-        '%f' % (FIN_SIZE[0] * MEMBRANCE_WIDTH * FIN_SIZE[2] * 1000.0)
+        '%f' % (FIN_SIZE[0] * FIN_SIZE[1] * FIN_SIZE[2] * 1000.0)
     )
     fin_link.find('.//visual/geometry/box/size').text = (
-        '%f %f %f' % (FIN_SIZE[0], FIN_SIZE[2], MEMBRANCE_WIDTH, )
+        '%f %f %f' % (FIN_SIZE[0], FIN_SIZE[2], FIN_SIZE[1], )
     )
     fin_link.find('.//collision/geometry/box/size').text = (
-        '%f %f %f' % (FIN_SIZE[0], FIN_SIZE[2], MEMBRANCE_WIDTH, )
+        '%f %f %f' % (FIN_SIZE[0], FIN_SIZE[2], FIN_SIZE[1], )
     )
 
     fin_joint = fin_mdel_xml.find('joint')

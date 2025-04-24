@@ -5,9 +5,9 @@
 	<world name="fish_world">
 		
 
-	
+		
 		<plugin filename="libignition-gazebo-scene-broadcaster-system.so" name="gz::sim::systems::SceneBroadcaster">
-	  </plugin>
+		</plugin>
 		
 		
 		<physics name="20ms" type="ode">
@@ -53,13 +53,7 @@
 		<engine>ogre2</engine>
 		
 		
-		<scene>scene</scene>
 		
-		
-		<ambient_light>1.0 1.0 1.0</ambient_light>
-		
-		
-		<background_color>0.4 0.6 1.0</background_color>
 		
 		
 		<camera_pose>8.3 7 7.8 0 0.5 -2.4</camera_pose>
@@ -73,7 +67,6 @@
 		
 		<atmosphere type="adiabatic"/>
 		
-		
 
 		
 		<light name="sun" type="directional">
@@ -82,14 +75,14 @@
 			<pose>0 0 10 0 -0 0</pose>
 			
 			
-			<cast_shadows>true</cast_shadows>
+			<cast_shadows>false</cast_shadows>
 			
 			
 			<intensity>1</intensity>
 			
 			
-			<direction>-0.5 0.1 -0.9</direction>
-			
+			<direction>0 0 -1</direction>
+			 
 			
 			<diffuse>1 1 1 1</diffuse>
 			
@@ -312,7 +305,7 @@
 				
 				
 				<xU>-51.9386</xU>
-				 
+				
 
 				
 				<yDotV>-55.8425</yDotV>
@@ -352,7 +345,7 @@
 				
 				<kP>-104.72</kP>
 				
-				
+
 				
 				<mQabsQ>-190</mQabsQ>
 				
@@ -368,7 +361,7 @@
 				
 
 				
-				
+
 				
 
 
@@ -380,7 +373,7 @@
 			<link name="fin_1_1">
 				
     
-				<pose relative_to="fin_1_1_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_1_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -893,7 +886,7 @@
 			<link name="fin_1_2">
 				
     
-				<pose relative_to="fin_1_2_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_2_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -1406,7 +1399,7 @@
 			<link name="fin_1_3">
 				
     
-				<pose relative_to="fin_1_3_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_3_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -1919,7 +1912,7 @@
 			<link name="fin_1_4">
 				
     
-				<pose relative_to="fin_1_4_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_4_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -2432,7 +2425,7 @@
 			<link name="fin_1_5">
 				
     
-				<pose relative_to="fin_1_5_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_5_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -2945,7 +2938,7 @@
 			<link name="fin_1_6">
 				
     
-				<pose relative_to="fin_1_6_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_6_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -3458,7 +3451,7 @@
 			<link name="fin_1_7">
 				
     
-				<pose relative_to="fin_1_7_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_7_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -3971,7 +3964,7 @@
 			<link name="fin_1_8">
 				
     
-				<pose relative_to="fin_1_8_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_8_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -4484,7 +4477,7 @@
 			<link name="fin_1_9">
 				
     
-				<pose relative_to="fin_1_9_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_9_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -4997,7 +4990,7 @@
 			<link name="fin_1_10">
 				
     
-				<pose relative_to="fin_1_10_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_10_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -5510,7 +5503,7 @@
 			<link name="fin_1_11">
 				
     
-				<pose relative_to="fin_1_11_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_11_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -6023,7 +6016,7 @@
 			<link name="fin_1_12">
 				
     
-				<pose relative_to="fin_1_12_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_12_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -6536,7 +6529,7 @@
 			<link name="fin_1_13">
 				
     
-				<pose relative_to="fin_1_13_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_13_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -7049,7 +7042,7 @@
 			<link name="fin_1_14">
 				
     
-				<pose relative_to="fin_1_14_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_14_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -7562,7 +7555,7 @@
 			<link name="fin_1_15">
 				
     
-				<pose relative_to="fin_1_15_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_15_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -8075,7 +8068,7 @@
 			<link name="fin_1_16">
 				
     
-				<pose relative_to="fin_1_16_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_16_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -8588,7 +8581,7 @@
 			<link name="fin_1_17">
 				
     
-				<pose relative_to="fin_1_17_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_17_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -9101,7 +9094,7 @@
 			<link name="fin_1_18">
 				
     
-				<pose relative_to="fin_1_18_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_18_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -9614,7 +9607,7 @@
 			<link name="fin_1_19">
 				
     
-				<pose relative_to="fin_1_19_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_19_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -10127,7 +10120,7 @@
 			<link name="fin_1_20">
 				
     
-				<pose relative_to="fin_1_20_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_20_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -10640,7 +10633,7 @@
 			<link name="fin_1_21">
 				
     
-				<pose relative_to="fin_1_21_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_21_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -11153,7 +11146,7 @@
 			<link name="fin_1_22">
 				
     
-				<pose relative_to="fin_1_22_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_22_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -11666,7 +11659,7 @@
 			<link name="fin_1_23">
 				
     
-				<pose relative_to="fin_1_23_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_23_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -12179,7 +12172,7 @@
 			<link name="fin_1_24">
 				
     
-				<pose relative_to="fin_1_24_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_24_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -12692,7 +12685,7 @@
 			<link name="fin_1_25">
 				
     
-				<pose relative_to="fin_1_25_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_25_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -13205,7 +13198,7 @@
 			<link name="fin_1_26">
 				
     
-				<pose relative_to="fin_1_26_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_26_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -13718,7 +13711,7 @@
 			<link name="fin_1_27">
 				
     
-				<pose relative_to="fin_1_27_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_27_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -14231,7 +14224,7 @@
 			<link name="fin_1_28">
 				
     
-				<pose relative_to="fin_1_28_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_28_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -14744,7 +14737,7 @@
 			<link name="fin_1_29">
 				
     
-				<pose relative_to="fin_1_29_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_29_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -15257,7 +15250,7 @@
 			<link name="fin_1_30">
 				
     
-				<pose relative_to="fin_1_30_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_30_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -15770,7 +15763,7 @@
 			<link name="fin_1_31">
 				
     
-				<pose relative_to="fin_1_31_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_31_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -16283,7 +16276,7 @@
 			<link name="fin_1_32">
 				
     
-				<pose relative_to="fin_1_32_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_32_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -16796,7 +16789,7 @@
 			<link name="fin_1_33">
 				
     
-				<pose relative_to="fin_1_33_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_33_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -17309,7 +17302,7 @@
 			<link name="fin_1_34">
 				
     
-				<pose relative_to="fin_1_34_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_34_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -17822,7 +17815,7 @@
 			<link name="fin_1_35">
 				
     
-				<pose relative_to="fin_1_35_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_35_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -18335,7 +18328,7 @@
 			<link name="fin_1_36">
 				
     
-				<pose relative_to="fin_1_36_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_36_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -18848,7 +18841,7 @@
 			<link name="fin_1_37">
 				
     
-				<pose relative_to="fin_1_37_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_37_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -19361,7 +19354,7 @@
 			<link name="fin_1_38">
 				
     
-				<pose relative_to="fin_1_38_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_38_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -19874,7 +19867,7 @@
 			<link name="fin_1_39">
 				
     
-				<pose relative_to="fin_1_39_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_39_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -20387,7 +20380,7 @@
 			<link name="fin_1_40">
 				
     
-				<pose relative_to="fin_1_40_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_40_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -20900,7 +20893,7 @@
 			<link name="fin_1_41">
 				
     
-				<pose relative_to="fin_1_41_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_41_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -21413,7 +21406,7 @@
 			<link name="fin_1_42">
 				
     
-				<pose relative_to="fin_1_42_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_42_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -21926,7 +21919,7 @@
 			<link name="fin_1_43">
 				
     
-				<pose relative_to="fin_1_43_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_43_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -22439,7 +22432,7 @@
 			<link name="fin_1_44">
 				
     
-				<pose relative_to="fin_1_44_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_44_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -22952,7 +22945,7 @@
 			<link name="fin_1_45">
 				
     
-				<pose relative_to="fin_1_45_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_45_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -23465,7 +23458,7 @@
 			<link name="fin_1_46">
 				
     
-				<pose relative_to="fin_1_46_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_46_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -23978,7 +23971,7 @@
 			<link name="fin_1_47">
 				
     
-				<pose relative_to="fin_1_47_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_47_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -24491,7 +24484,7 @@
 			<link name="fin_1_48">
 				
     
-				<pose relative_to="fin_1_48_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_48_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -25004,7 +24997,7 @@
 			<link name="fin_1_49">
 				
     
-				<pose relative_to="fin_1_49_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_49_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -25517,7 +25510,7 @@
 			<link name="fin_1_50">
 				
     
-				<pose relative_to="fin_1_50_circular">0.0 0.0 -0.165000 3.14 0 0</pose>
+				<pose relative_to="fin_1_50_circular">0.0 0.0 -0.200000 3.14 0 0</pose>
 				
     
 				<inertial>
@@ -26030,7 +26023,7 @@
 			<link name="fin_2_1">
 				
     
-				<pose relative_to="fin_2_1_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_1_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -26543,7 +26536,7 @@
 			<link name="fin_2_2">
 				
     
-				<pose relative_to="fin_2_2_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_2_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -27056,7 +27049,7 @@
 			<link name="fin_2_3">
 				
     
-				<pose relative_to="fin_2_3_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_3_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -27569,7 +27562,7 @@
 			<link name="fin_2_4">
 				
     
-				<pose relative_to="fin_2_4_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_4_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -28082,7 +28075,7 @@
 			<link name="fin_2_5">
 				
     
-				<pose relative_to="fin_2_5_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_5_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -28595,7 +28588,7 @@
 			<link name="fin_2_6">
 				
     
-				<pose relative_to="fin_2_6_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_6_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -29108,7 +29101,7 @@
 			<link name="fin_2_7">
 				
     
-				<pose relative_to="fin_2_7_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_7_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -29621,7 +29614,7 @@
 			<link name="fin_2_8">
 				
     
-				<pose relative_to="fin_2_8_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_8_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -30134,7 +30127,7 @@
 			<link name="fin_2_9">
 				
     
-				<pose relative_to="fin_2_9_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_9_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -30647,7 +30640,7 @@
 			<link name="fin_2_10">
 				
     
-				<pose relative_to="fin_2_10_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_10_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -31160,7 +31153,7 @@
 			<link name="fin_2_11">
 				
     
-				<pose relative_to="fin_2_11_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_11_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -31673,7 +31666,7 @@
 			<link name="fin_2_12">
 				
     
-				<pose relative_to="fin_2_12_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_12_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -32186,7 +32179,7 @@
 			<link name="fin_2_13">
 				
     
-				<pose relative_to="fin_2_13_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_13_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -32699,7 +32692,7 @@
 			<link name="fin_2_14">
 				
     
-				<pose relative_to="fin_2_14_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_14_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -33212,7 +33205,7 @@
 			<link name="fin_2_15">
 				
     
-				<pose relative_to="fin_2_15_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_15_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -33725,7 +33718,7 @@
 			<link name="fin_2_16">
 				
     
-				<pose relative_to="fin_2_16_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_16_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -34238,7 +34231,7 @@
 			<link name="fin_2_17">
 				
     
-				<pose relative_to="fin_2_17_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_17_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -34751,7 +34744,7 @@
 			<link name="fin_2_18">
 				
     
-				<pose relative_to="fin_2_18_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_18_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -35264,7 +35257,7 @@
 			<link name="fin_2_19">
 				
     
-				<pose relative_to="fin_2_19_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_19_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -35777,7 +35770,7 @@
 			<link name="fin_2_20">
 				
     
-				<pose relative_to="fin_2_20_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_20_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -36290,7 +36283,7 @@
 			<link name="fin_2_21">
 				
     
-				<pose relative_to="fin_2_21_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_21_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -36803,7 +36796,7 @@
 			<link name="fin_2_22">
 				
     
-				<pose relative_to="fin_2_22_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_22_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -37316,7 +37309,7 @@
 			<link name="fin_2_23">
 				
     
-				<pose relative_to="fin_2_23_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_23_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -37829,7 +37822,7 @@
 			<link name="fin_2_24">
 				
     
-				<pose relative_to="fin_2_24_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_24_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -38342,7 +38335,7 @@
 			<link name="fin_2_25">
 				
     
-				<pose relative_to="fin_2_25_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_25_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -38855,7 +38848,7 @@
 			<link name="fin_2_26">
 				
     
-				<pose relative_to="fin_2_26_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_26_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -39368,7 +39361,7 @@
 			<link name="fin_2_27">
 				
     
-				<pose relative_to="fin_2_27_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_27_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -39881,7 +39874,7 @@
 			<link name="fin_2_28">
 				
     
-				<pose relative_to="fin_2_28_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_28_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -40394,7 +40387,7 @@
 			<link name="fin_2_29">
 				
     
-				<pose relative_to="fin_2_29_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_29_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -40907,7 +40900,7 @@
 			<link name="fin_2_30">
 				
     
-				<pose relative_to="fin_2_30_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_30_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -41420,7 +41413,7 @@
 			<link name="fin_2_31">
 				
     
-				<pose relative_to="fin_2_31_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_31_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -41933,7 +41926,7 @@
 			<link name="fin_2_32">
 				
     
-				<pose relative_to="fin_2_32_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_32_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -42446,7 +42439,7 @@
 			<link name="fin_2_33">
 				
     
-				<pose relative_to="fin_2_33_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_33_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -42959,7 +42952,7 @@
 			<link name="fin_2_34">
 				
     
-				<pose relative_to="fin_2_34_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_34_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -43472,7 +43465,7 @@
 			<link name="fin_2_35">
 				
     
-				<pose relative_to="fin_2_35_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_35_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -43985,7 +43978,7 @@
 			<link name="fin_2_36">
 				
     
-				<pose relative_to="fin_2_36_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_36_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -44498,7 +44491,7 @@
 			<link name="fin_2_37">
 				
     
-				<pose relative_to="fin_2_37_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_37_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -45011,7 +45004,7 @@
 			<link name="fin_2_38">
 				
     
-				<pose relative_to="fin_2_38_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_38_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -45524,7 +45517,7 @@
 			<link name="fin_2_39">
 				
     
-				<pose relative_to="fin_2_39_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_39_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -46037,7 +46030,7 @@
 			<link name="fin_2_40">
 				
     
-				<pose relative_to="fin_2_40_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_40_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -46550,7 +46543,7 @@
 			<link name="fin_2_41">
 				
     
-				<pose relative_to="fin_2_41_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_41_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -47063,7 +47056,7 @@
 			<link name="fin_2_42">
 				
     
-				<pose relative_to="fin_2_42_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_42_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -47576,7 +47569,7 @@
 			<link name="fin_2_43">
 				
     
-				<pose relative_to="fin_2_43_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_43_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -48089,7 +48082,7 @@
 			<link name="fin_2_44">
 				
     
-				<pose relative_to="fin_2_44_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_44_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -48602,7 +48595,7 @@
 			<link name="fin_2_45">
 				
     
-				<pose relative_to="fin_2_45_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_45_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -49115,7 +49108,7 @@
 			<link name="fin_2_46">
 				
     
-				<pose relative_to="fin_2_46_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_46_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -49628,7 +49621,7 @@
 			<link name="fin_2_47">
 				
     
-				<pose relative_to="fin_2_47_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_47_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -50141,7 +50134,7 @@
 			<link name="fin_2_48">
 				
     
-				<pose relative_to="fin_2_48_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_48_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -50654,7 +50647,7 @@
 			<link name="fin_2_49">
 				
     
-				<pose relative_to="fin_2_49_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_49_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -51167,7 +51160,7 @@
 			<link name="fin_2_50">
 				
     
-				<pose relative_to="fin_2_50_circular">0 0 0.165000 0 0 0</pose>
+				<pose relative_to="fin_2_50_circular">0.0 0.0 0.200000 0 0 0</pose>
 				
     
 				<inertial>
@@ -51677,6 +51670,66 @@
 			
 
   
+		</model>
+		
+
+		
+		<model name="start_plane">
+			
+			
+			<static>true</static>
+			
+			
+			<pose>0 0 -1 0 0 0</pose>
+			
+			
+			<link name="start_link">
+				
+
+				
+				<visual name="start_visual">
+					
+					
+					<geometry>
+						
+						
+						<plane>
+							
+							
+							<normal>0 0 1</normal>
+							
+							
+							<size>300 300</size>
+							
+						
+						</plane>
+						
+					
+					</geometry>
+					
+					
+					<material>
+						
+						
+						<ambient>0.2 0.4 0.8 1</ambient>
+						    
+						
+						<diffuse>0.2 0.4 0.8 1</diffuse>
+						
+						
+						<transparency>0.3</transparency>
+						  
+					
+					</material>
+					
+				
+				</visual>
+				
+
+			
+			</link>
+			
+		
 		</model>
 		
 
