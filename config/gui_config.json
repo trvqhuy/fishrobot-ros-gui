@@ -2,11 +2,11 @@
     "link_number": 50,
     "fish_length": 1.22,
     "fish_width": 0.36,
-    "membrance_width": 0.17,
+    "membrance_width": 0.25,
     "membrance_length": 1.1,
     "membrane_1_on": true,
     "membrane_2_on": true,
-    "wave_type": "linear",
+    "wave_type": "quadratic",
     "wave_mode": "traveling",
     "wave_number": 1.0,
     "membrane_1": {

@@ -186,7 +186,6 @@ class FishSimLauncher(QtWidgets.QWidget):
         self.ros_proc = None
         self.gz_proc = None
         self.motion_proc = None  # Track motion publisher process
-        
         rclpy.init()
         self.data_recorder = DataRecorder(gui=self)
         self.data_thread = threading.Thread(target=rclpy.spin, args=(self.data_recorder,), daemon=True)
@@ -245,7 +244,7 @@ class FishSimLauncher(QtWidgets.QWidget):
         # CPU and RAM labels on the left
         cpu_ram_widget = QtWidgets.QWidget()
         cpu_ram_layout = QtWidgets.QHBoxLayout()
-        self.cpu_label = QtWidgets.QLabel("🧠 CPU: N/A%")
+        self.cpu_label = QtWidgets.QLabel("🔲 CPU: N/A%")
         self.ram_label = QtWidgets.QLabel("💾 RAM: N/A%")
         self.cpu_label.setStyleSheet("font-weight: bold; font-size: 14px;")
         self.ram_label.setStyleSheet("font-weight: bold; font-size: 14px;")
@@ -471,7 +470,7 @@ class FishSimLauncher(QtWidgets.QWidget):
         log_layout.addWidget(self.output)
         log_group.setLayout(log_layout)
 
-        bottom_layout.addWidget(log_group, 2)  # takes 2/3 of space
+        bottom_layout.addWidget(log_group, 1)  # takes 2/3 of space
 
         # === FISH MOTION CONTROL PANEL ===
         motion_group = QtWidgets.QGroupBox("Fish Motion Parameters")
@@ -865,6 +864,8 @@ class FishSimLauncher(QtWidgets.QWidget):
         self.env_z.setValue(0.0)
         self.log("🔁 Ocean current parameters reset to zero.")
 
+        self.apply_environment_params()
+
     def apply_environment_params(self):
         x = self.env_x.value()
         y = self.env_y.value()
@@ -1022,7 +1023,7 @@ class FishSimLauncher(QtWidgets.QWidget):
     def update_health(self):
         cpu = psutil.cpu_percent()
         mem = psutil.virtual_memory()
-        self.cpu_label.setText(f"🧠 CPU: {cpu}%")
+        self.cpu_label.setText(f"🔲 CPU: {cpu}%")
         self.ram_label.setText(f"💾 RAM: {mem.percent}% of {round(mem.total / (1024 ** 3), 1)} GB")
 
         current_time = int(time.time()) - self.start_time
