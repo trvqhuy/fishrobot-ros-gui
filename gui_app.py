@@ -1,6 +1,5 @@
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import Imu
 from geometry_msgs.msg import PoseArray
 import threading
 import csv
@@ -15,7 +14,6 @@ import pyqtgraph as pg
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtGui import QFont
 import multiprocessing as mp
-from queue import Empty
 
 CONFIG_FILE = "config/gui_config.json"
 
@@ -23,7 +21,7 @@ DEFAULTS = {
     "link_number": 50,
     "fish_length": 1.220,
     "fish_width": 0.360,
-    "membrance_width": 0.170,
+    "membrance_width": 0.250,
     "membrance_length": 1.096,
 }
 

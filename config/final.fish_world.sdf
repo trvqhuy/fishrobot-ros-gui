@@ -50,6 +50,10 @@
 		
 
 		
+		<plugin filename="ignition-gazebo-imu-system" name="ignition::gazebo::systems::Imu"/>
+		
+
+		
 		<engine>ogre2</engine>
 		
 		
@@ -131,34 +135,164 @@
 			
 
 			
-			<plugin filename="ignition-gazebo-imu-system" name="ignition::gazebo::systems::Imu">
-			</plugin>
-			
-
-			
 			<link name="fish_body">
 				
 				
-				<sensor name="imu_sensor" type="imu">
+				<pose>0 0 0 1.5708 0 0</pose>
+				
+
+				
+				
+				<sensor name="imu_sensor_1" type="imu">
+					
+					
+					<pose>0 0 0 0 0 0</pose>
 					
 					
 					<always_on>1</always_on>
 					
 					
-					<update_rate>10</update_rate>
+					<update_rate>100</update_rate>
 					
 					
 					<visualize>true</visualize>
 					
 					
-					<topic>imu</topic>
+					<topic>/imu_1</topic>
+					
+					
+					<imu>
+						
+						
+						<angular_velocity>true</angular_velocity>
+						
+						
+						<linear_acceleration>true</linear_acceleration>
+						
+						
+						<orientation>true</orientation>
+						
+					
+					</imu>
 					
 				
 				</sensor>
 				
+
 				
-				<pose>0 0 0 1.5708 0 0</pose>
 				
+				<sensor name="imu_sensor_2" type="imu">
+					
+					
+					<pose>0.2 0 0 0 0 0</pose>
+					
+					
+					<always_on>1</always_on>
+					
+					
+					<update_rate>100</update_rate>
+					
+					
+					<visualize>true</visualize>
+					
+					
+					<topic>/imu_2</topic>
+					
+					
+					<imu>
+						
+						
+						<angular_velocity>true</angular_velocity>
+						
+						
+						<linear_acceleration>true</linear_acceleration>
+						
+						
+						<orientation>true</orientation>
+						
+					
+					</imu>
+					
+				
+				</sensor>
+				
+
+				
+				
+				<sensor name="imu_sensor_3" type="imu">
+					
+					
+					<pose>0 0.2 0 0 0 0</pose>
+					
+					
+					<always_on>1</always_on>
+					
+					
+					<update_rate>100</update_rate>
+					
+					
+					<visualize>true</visualize>
+					
+					
+					<topic>/imu_3</topic>
+					
+					
+					<imu>
+						
+						
+						<angular_velocity>true</angular_velocity>
+						
+						
+						<linear_acceleration>true</linear_acceleration>
+						
+						
+						<orientation>true</orientation>
+						
+					
+					</imu>
+					
+				
+				</sensor>
+				
+
+				
+				
+				<sensor name="imu_sensor_4" type="imu">
+					
+					
+					<pose>0 -0.2 0 0 0 0</pose>
+					
+					
+					<always_on>1</always_on>
+					
+					
+					<update_rate>100</update_rate>
+					
+					
+					<visualize>true</visualize>
+					
+					
+					<topic>/imu_4</topic>
+					
+					
+					<imu>
+						
+						
+						<angular_velocity>true</angular_velocity>
+						
+						
+						<linear_acceleration>true</linear_acceleration>
+						
+						
+						<orientation>true</orientation>
+						
+					
+					</imu>
+					
+				
+				</sensor>
+				
+
 
 				
 				<inertial>
@@ -51732,7 +51866,7 @@
 		
 		</model>
 		
-
+		
 	
 	</world>
 	

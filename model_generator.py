@@ -414,12 +414,22 @@ for iter in range(LINK_NUMBER):
         + '/joint/fin_2_%d_circular_joint/0/cmd_pos' % (iter + 1)
     )
 
-output_data.append({
-    'ros_topic_name': '/imu',
-    'gz_topic_name': '/imu',
-    'ros_type_name': 'sensor_msgs/msg/Imu',
-    'gz_type_name': 'gz.msgs.IMU',
-})
+# output_data.append({
+#     'ros_topic_name': '/imu',
+#     'gz_topic_name': '/imu',
+#     'ros_type_name': 'sensor_msgs/msg/Imu',
+#     'gz_type_name': 'gz.msgs.IMU',
+# })
+
+
+# === ✅ BRIDGE 4 IMU TOPICS ===
+for i in range(1, 5):
+    output_data.append({
+        'ros_topic_name': f'/imu_{i}',
+        'gz_topic_name': f'/imu_{i}',
+        'ros_type_name': 'sensor_msgs/msg/Imu',
+        'gz_type_name': 'gz.msgs.IMU',
+    })
 
 output_data.append({
     'ros_topic_name': '/world/fish_world/dynamic_pose/info',

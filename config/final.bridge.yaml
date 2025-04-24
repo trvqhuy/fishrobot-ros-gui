@@ -798,8 +798,20 @@
   gz_topic_name: /model/fish_model/joint/fin_2_50_circular_joint/0/cmd_pos
   ros_type_name: std_msgs/msg/Float64
   gz_type_name: gz.msgs.Double
-- ros_topic_name: /imu
-  gz_topic_name: /imu
+- ros_topic_name: /imu_1
+  gz_topic_name: /imu_1
+  ros_type_name: sensor_msgs/msg/Imu
+  gz_type_name: gz.msgs.IMU
+- ros_topic_name: /imu_2
+  gz_topic_name: /imu_2
+  ros_type_name: sensor_msgs/msg/Imu
+  gz_type_name: gz.msgs.IMU
+- ros_topic_name: /imu_3
+  gz_topic_name: /imu_3
+  ros_type_name: sensor_msgs/msg/Imu
+  gz_type_name: gz.msgs.IMU
+- ros_topic_name: /imu_4
+  gz_topic_name: /imu_4
   ros_type_name: sensor_msgs/msg/Imu
   gz_type_name: gz.msgs.IMU
 - ros_topic_name: /world/fish_world/dynamic_pose/info
