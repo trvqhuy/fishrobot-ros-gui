@@ -431,48 +431,38 @@
 				
 
 				
-				
-				<xDotU>-10.1853</xDotU>
-				
-				
-				<xUU>0.75844</xUU>
+				<xDotU>-7.4019</xDotU>
 				
 				
-				<xU>-51.9386</xU>
-				
-
-				
-				<yDotV>-55.8425</yDotV>
+				<xUU>-0.9576</xUU>
 				
 				
-				<yVV>-1.782</yVV>
-				
-				
-				<yV>-37.6800</yV>
+				<xU>-45.8669</xU>
 				
 
 				
-				<zDotW>-8.06883</zDotW>
+				<yDotV>-13.3689</yDotV>
 				
 				
-				<zWW>-0.08794</zWW>
+				<yVV>-0.2</yVV>
 				
 				
-				<zW>-98.866</zW>
+				<yV>-13.9664</yV>
 				
 
+				
+				<zDotW>-52.5309</zDotW>
+				
+				
+				<zWW>-31.90550</zWW>
+				
+				
+				<zW>-56.1710</zW>
 				
 
 				
 				<kDotP>-4.42167</kDotP>
 				
-				
-				<mDotQ>-7.3833</mDotQ>
-				
-				
-				<nDotR>-0.55848</nDotR>
-				
-
 				
 				<kPabsP>-210.158</kPabsP>
 				
@@ -481,6 +471,9 @@
 				
 
 				
+				<mDotQ>-7.3833</mDotQ>
+				
+				
 				<mQabsQ>-190</mQabsQ>
 				
 				
@@ -488,14 +481,14 @@
 				
 
 				
+				<nDotR>-0.55848</nDotR>
+				
+				
 				<nRabsR>-0.2106</nRabsR>
 				
 				
 				<nR>-1.0869</nR>
 				
-
-				
-
 				
 
 
@@ -980,21 +973,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -1493,21 +1486,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -2006,21 +1999,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -2519,21 +2512,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -3032,21 +3025,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -3545,21 +3538,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -4058,21 +4051,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -4571,21 +4564,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -5084,21 +5077,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -5597,21 +5590,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -6110,21 +6103,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -6623,21 +6616,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -7136,21 +7129,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -7649,21 +7642,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -8162,21 +8155,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -8675,21 +8668,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -9188,21 +9181,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -9701,21 +9694,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -10214,21 +10207,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -10727,21 +10720,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -11240,21 +11233,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -11753,21 +11746,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -12266,21 +12259,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -12779,21 +12772,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -13292,21 +13285,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -13805,21 +13798,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -14318,21 +14311,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -14831,21 +14824,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -15344,21 +15337,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -15857,21 +15850,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -16370,21 +16363,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -16883,21 +16876,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -17396,21 +17389,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -17909,21 +17902,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -18422,21 +18415,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -18935,21 +18928,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -19448,21 +19441,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -19961,21 +19954,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -20474,21 +20467,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -20987,21 +20980,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -21500,21 +21493,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -22013,21 +22006,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -22526,21 +22519,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -23039,21 +23032,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -23552,21 +23545,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -24065,21 +24058,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -24578,21 +24571,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -25091,21 +25084,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -25604,21 +25597,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -26117,21 +26110,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -26630,21 +26623,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -26654,7 +26647,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_1</link_name>
@@ -27143,21 +27136,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -27167,7 +27160,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_2</link_name>
@@ -27656,21 +27649,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -27680,7 +27673,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_3</link_name>
@@ -28169,21 +28162,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -28193,7 +28186,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_4</link_name>
@@ -28682,21 +28675,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -28706,7 +28699,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_5</link_name>
@@ -29195,21 +29188,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -29219,7 +29212,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_6</link_name>
@@ -29708,21 +29701,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -29732,7 +29725,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_7</link_name>
@@ -30221,21 +30214,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -30245,7 +30238,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_8</link_name>
@@ -30734,21 +30727,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -30758,7 +30751,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_9</link_name>
@@ -31247,21 +31240,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -31271,7 +31264,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_10</link_name>
@@ -31760,21 +31753,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -31784,7 +31777,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_11</link_name>
@@ -32273,21 +32266,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -32297,7 +32290,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_12</link_name>
@@ -32786,21 +32779,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -32810,7 +32803,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_13</link_name>
@@ -33299,21 +33292,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -33323,7 +33316,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_14</link_name>
@@ -33812,21 +33805,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -33836,7 +33829,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_15</link_name>
@@ -34325,21 +34318,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -34349,7 +34342,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_16</link_name>
@@ -34838,21 +34831,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -34862,7 +34855,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_17</link_name>
@@ -35351,21 +35344,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -35375,7 +35368,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_18</link_name>
@@ -35864,21 +35857,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -35888,7 +35881,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_19</link_name>
@@ -36377,21 +36370,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -36401,7 +36394,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_20</link_name>
@@ -36890,21 +36883,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -36914,7 +36907,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_21</link_name>
@@ -37403,21 +37396,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -37427,7 +37420,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_22</link_name>
@@ -37916,21 +37909,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -37940,7 +37933,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_23</link_name>
@@ -38429,21 +38422,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -38453,7 +38446,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_24</link_name>
@@ -38942,21 +38935,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -38966,7 +38959,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_25</link_name>
@@ -39455,21 +39448,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -39479,7 +39472,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_26</link_name>
@@ -39968,21 +39961,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -39992,7 +39985,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_27</link_name>
@@ -40481,21 +40474,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -40505,7 +40498,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_28</link_name>
@@ -40994,21 +40987,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -41018,7 +41011,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_29</link_name>
@@ -41507,21 +41500,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -41531,7 +41524,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_30</link_name>
@@ -42020,21 +42013,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -42044,7 +42037,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_31</link_name>
@@ -42533,21 +42526,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -42557,7 +42550,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_32</link_name>
@@ -43046,21 +43039,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -43070,7 +43063,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_33</link_name>
@@ -43559,21 +43552,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -43583,7 +43576,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_34</link_name>
@@ -44072,21 +44065,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -44096,7 +44089,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_35</link_name>
@@ -44585,21 +44578,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -44609,7 +44602,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_36</link_name>
@@ -45098,21 +45091,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -45122,7 +45115,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_37</link_name>
@@ -45611,21 +45604,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -45635,7 +45628,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_38</link_name>
@@ -46124,21 +46117,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -46148,7 +46141,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_39</link_name>
@@ -46637,21 +46630,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -46661,7 +46654,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_40</link_name>
@@ -47150,21 +47143,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -47174,7 +47167,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_41</link_name>
@@ -47663,21 +47656,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -47687,7 +47680,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_42</link_name>
@@ -48176,21 +48169,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -48200,7 +48193,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_43</link_name>
@@ -48689,21 +48682,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -48713,7 +48706,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_44</link_name>
@@ -49202,21 +49195,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -49226,7 +49219,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_45</link_name>
@@ -49715,21 +49708,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -49739,7 +49732,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_46</link_name>
@@ -50228,21 +50221,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -50252,7 +50245,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_47</link_name>
@@ -50741,21 +50734,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -50765,7 +50758,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_48</link_name>
@@ -51254,21 +51247,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -51278,7 +51271,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_49</link_name>
@@ -51767,21 +51760,21 @@
 				<a0>0</a0>
 				
     
-				<alpha_stall>1.5708</alpha_stall>
+				<alpha_stall>0.611</alpha_stall>
 				
 
     
-				<cla>1.535816618911175</cla>
+				<cla>0.766</cla>
 				
     
-				<cla_stall>1.4326647564469914</cla_stall>
+				<cla_stall>-0.776</cla_stall>
 				
   
     
-				<cda>0</cda>
+				<cda>1.073</cda>
 				
     
-				<cda_stall>0</cda_stall>
+				<cda_stall>0.883</cda_stall>
 				
 
     
@@ -51791,7 +51784,7 @@
 				<upward>1.0 0 0</upward>
 				
     
-				<forward>0 1.0 0</forward>
+				<forward>0 -1.0 0</forward>
 				
     
 				<link_name>fin_2_50</link_name>

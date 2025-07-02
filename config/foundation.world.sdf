@@ -184,61 +184,30 @@
 				name="ignition::gazebo::systems::Hydrodynamics">
 				<link_name>fish_body</link_name>
 
-				<!-- Translation -->
-				<xDotU>-10.1853</xDotU>
-				<xUU>0.75844</xUU>
-				<xU>-51.9386</xU>
+				<xDotU>-7.4019</xDotU>
+				<xUU>-0.9576</xUU>
+				<xU>-45.8669</xU>
 
-				<yDotV>-55.8425</yDotV>
-				<yVV>-1.782</yVV>
-				<yV>-37.6800</yV>
+				<yDotV>-13.3689</yDotV>
+				<yVV>-0.2</yVV>
+				<yV>-13.9664</yV>
 
-				<zDotW>-8.06883</zDotW>
-				<zWW>-0.08794</zWW>
-				<zW>-98.866</zW>
-
-				<!-- Rotational -->
+				<zDotW>-52.5309</zDotW>
+				<zWW>-31.90550</zWW>
+				<zW>-56.1710</zW>
 
 				<kDotP>-4.42167</kDotP>
-				<mDotQ>-7.3833</mDotQ>
-				<nDotR>-0.55848</nDotR>
-
 				<kPabsP>-210.158</kPabsP>
 				<kP>-104.72</kP>
 
+				<mDotQ>-7.3833</mDotQ>
 				<mQabsQ>-190</mQabsQ>
 				<mQ>-10</mQ>
 
+				<nDotR>-0.55848</nDotR>
 				<nRabsR>-0.2106</nRabsR>
 				<nR>-1.0869</nR>
-
-				<!-- <mDotQ>-74.9</mDotQ>
-				<mQQ>-28.588</mQQ>
-				<mQ>-15.68</mQ> -->
-
-				<!-- <xDotU>-1.258284</xDotU>
-				<xUU>-32.6899</xUU>
-				<xU>-280.2128</xU>
-
-				<yDotV>-0.3541</yDotV>
-				<yVV>-57.8237</yVV>
-				<yV>-395.4553</yV>
-
-				<zDotW>-0.092215</zDotW>
-				<zWW>-3.7284</zWW>
-				<zW>-10.3873</zW>
-
-				<kDotP>-0.0706666667</kDotP>
-				<kPP>-5.3837</kPP>
-				<kP>-4.8434</kP>
-
-				<mDotQ>-0.01734466667</mDotQ>
-				<mQQ>-21.9755</mQQ>
-				<mQ>-19.0392</mQ>
-
-				<nDotR>-0.04523666667</nDotR>
-				<nRR>-5.3837</nRR>
-				<nR>-4.8434</nR> -->
+				
 
 
 			</plugin>

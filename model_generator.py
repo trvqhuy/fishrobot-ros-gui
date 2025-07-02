@@ -31,6 +31,14 @@ MEMBRANCE_LENGTH = float(gui_config.get("membrance_length", 1.096))
 MEMBRANE_1_ON = gui_config.get("membrane_1_on", True)
 MEMBRANE_2_ON = gui_config.get("membrane_2_on", True)
 
+# ====== HYDRODYNAMIC CONSTANTS ======
+CLA_DEFAULT = 0.766
+CLA_STALL_DEFAULT = -0.776
+CDA_DEFAULT = 1.073
+CDA_STALL_DEFAULT = 0.883
+ALPHA_STALL_DEFAULT = 0.611
+AREA_DEFAULT = 0.01096
+
 # FISH_LENGTH = 1.220     #in meters
 # FISH_WIDTH = 0.360
 # LINK_NUMBER = 50
@@ -98,6 +106,12 @@ for iter, each_item in enumerate(range(LINK_NUMBER)):
     fin_dynamic.find('upward').text = '1.0 0 0'
     fin_dynamic.find('forward').text = '0 1.0 0'
 
+    fin_dynamic.find('cla').text = str(CLA_DEFAULT)
+    fin_dynamic.find('cla_stall').text = str(CLA_STALL_DEFAULT)
+    fin_dynamic.find('cda').text = str(CDA_DEFAULT)
+    fin_dynamic.find('cda_stall').text = str(CDA_STALL_DEFAULT)
+    fin_dynamic.find('alpha_stall').text = str(ALPHA_STALL_DEFAULT)
+    fin_dynamic.find('area').text = str(AREA_DEFAULT)
 
     # fin_dynamic = fin_mdel_xml.findall('plugin')[-1]
     # fin_dynamic.find('link_name').text = 'fin_2_%d' % (iter + 1)
@@ -237,10 +251,18 @@ for iter, each_item in enumerate(range(LINK_NUMBER)):
     )
 
     fin_dynamic = fin_mdel_xml.findall('plugin')[-1]
+
     fin_dynamic.find('link_name').text = 'fin_2_%d' % (iter + 1)
     fin_dynamic.find('cp').text ='0 0 0' #% (FIN_SIZE[1]/2)
     fin_dynamic.find('upward').text = '1.0 0 0'
-    fin_dynamic.find('forward').text = '0 1.0 0'
+    fin_dynamic.find('forward').text = '0 -1.0 0'
+
+    fin_dynamic.find('cla').text = str(CLA_DEFAULT)
+    fin_dynamic.find('cla_stall').text = str(CLA_STALL_DEFAULT)
+    fin_dynamic.find('cda').text = str(CDA_DEFAULT)
+    fin_dynamic.find('cda_stall').text = str(CDA_STALL_DEFAULT)
+    fin_dynamic.find('alpha_stall').text = str(ALPHA_STALL_DEFAULT)
+    fin_dynamic.find('area').text = str(AREA_DEFAULT)
 
     fin_circular_link = fin_mdel_xml.findall('link')[1]
     for each_child in fin_circular_link:

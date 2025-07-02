@@ -39,8 +39,8 @@ class DataRecorder(Node):
         self.file = None
         self.writer = None
         self.start_time = None
-        self.last_positions = None
-        self.last_orientations = None
+        self.last_positions = None      # (pos_x, pos_y, pos_z)
+        self.last_quat = None           # [qx, qy, qz, qw]
         self.last_time = None
 
         # Buffers for CSV recording
@@ -50,7 +50,7 @@ class DataRecorder(Node):
         self.linear_velocity_buffer = {'x': [], 'y': [], 'z': []}
         self.angular_velocity_buffer = {'x': [], 'y': [], 'z': []}
         
-        self.low_pass_alpha = 0.05
+        self.low_pass_alpha = 0.01
         self.derivative_num = 10
         self.gui = gui
         self.plot_queue = plot_queue
@@ -100,6 +100,8 @@ class DataRecorder(Node):
             self.recording = False
 
     def pose_callback(self, msg):
+        from scipy.spatial.transform import Rotation as R
+
         current_time = time.time()
         if not self.recording or self.writer is None:
             return
@@ -107,31 +109,51 @@ class DataRecorder(Node):
         pose = msg.poses[0]
         elapsed = current_time - self.start_time
 
+        qx, qy, qz, qw = pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w
         pos_x, pos_y, pos_z = pose.position.x, pose.position.y, pose.position.z
-        ori_x, ori_y, ori_z, ori_w = pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w
 
+        # --- Rotation vector (rotvec) từ quaternion ---
+        r = R.from_quat([qx, qy, qz, qw])
+        rotvec = r.as_rotvec()
+        ori_x, ori_y, ori_z = rotvec[0], rotvec[1], rotvec[2]
+
+        # --- Linear velocity ---
         if self.last_positions is not None and self.last_time is not None:
             dt = current_time - self.last_time
             vx = (pos_x - self.last_positions[0]) / dt * self.low_pass_alpha + \
-                 (self.linear_velocity_buffer['x'][-1] if self.linear_velocity_buffer['x'] else 0.0) * (1 - self.low_pass_alpha)
+                (self.linear_velocity_buffer['x'][-1] if self.linear_velocity_buffer['x'] else 0.0) * (1 - self.low_pass_alpha)
             vy = (pos_y - self.last_positions[1]) / dt * self.low_pass_alpha + \
-                 (self.linear_velocity_buffer['y'][-1] if self.linear_velocity_buffer['y'] else 0.0) * (1 - self.low_pass_alpha)
+                (self.linear_velocity_buffer['y'][-1] if self.linear_velocity_buffer['y'] else 0.0) * (1 - self.low_pass_alpha)
             vz = (pos_z - self.last_positions[2]) / dt * self.low_pass_alpha + \
-                 (self.linear_velocity_buffer['z'][-1] if self.linear_velocity_buffer['z'] else 0.0) * (1 - self.low_pass_alpha)
-            wx = (ori_x - self.last_orientations[0]) / dt * self.low_pass_alpha + \
-                 (self.angular_velocity_buffer['x'][-1] if self.angular_velocity_buffer['x'] else 0.0) * (1 - self.low_pass_alpha)
-            wy = (ori_y - self.last_orientations[1]) / dt * self.low_pass_alpha + \
-                 (self.angular_velocity_buffer['y'][-1] if self.angular_velocity_buffer['y'] else 0.0) * (1 - self.low_pass_alpha)
-            wz = (ori_z - self.last_orientations[2]) / dt * self.low_pass_alpha + \
-                 (self.angular_velocity_buffer['z'][-1] if self.angular_velocity_buffer['z'] else 0.0) * (1 - self.low_pass_alpha)
+                (self.linear_velocity_buffer['z'][-1] if self.linear_velocity_buffer['z'] else 0.0) * (1 - self.low_pass_alpha)
         else:
             vx = vy = vz = 0.0
+
+        # --- Angular velocity từ quaternion ---
+        if self.last_quat is not None and self.last_time is not None:
+            dt = current_time - self.last_time
+            q_prev = self.last_quat
+            q_curr = [qx, qy, qz, qw]
+            r_prev = R.from_quat(q_prev)
+            r_curr = R.from_quat(q_curr)
+            r_delta = r_curr * r_prev.inv()
+            rotvec_delta = r_delta.as_rotvec()
+            wx = rotvec_delta[0] / dt
+            wy = rotvec_delta[1] / dt
+            wz = rotvec_delta[2] / dt
+            # --- Lowpass filter  ---
+            wx = wx * self.low_pass_alpha + (self.angular_velocity_buffer['x'][-1] if self.angular_velocity_buffer['x'] else 0.0) * (1 - self.low_pass_alpha)
+            wy = wy * self.low_pass_alpha + (self.angular_velocity_buffer['y'][-1] if self.angular_velocity_buffer['y'] else 0.0) * (1 - self.low_pass_alpha)
+            wz = wz * self.low_pass_alpha + (self.angular_velocity_buffer['z'][-1] if self.angular_velocity_buffer['z'] else 0.0) * (1 - self.low_pass_alpha)
+        else:
             wx = wy = wz = 0.0
 
+        # --- Update state ---
         self.last_positions = (pos_x, pos_y, pos_z)
-        self.last_orientations = (ori_x, ori_y, ori_z)
+        self.last_quat = [qx, qy, qz, qw]
         self.last_time = current_time
 
+        # --- Log ---
         self.writer.writerow([
             elapsed,
             ori_x, ori_y, ori_z,
@@ -140,6 +162,7 @@ class DataRecorder(Node):
             vx, vy, vz
         ])
 
+        # --- Buffer update ---
         self.time_buffer.append(elapsed)
         self.position_buffer['x'].append(pos_x)
         self.position_buffer['y'].append(pos_y)
@@ -156,8 +179,8 @@ class DataRecorder(Node):
 
         if len(self.time_buffer) > self.max_buffer_size:
             self.time_buffer.pop(0)
-            for buf in [self.position_buffer, self.orientation_buffer, 
-                       self.linear_velocity_buffer, self.angular_velocity_buffer]:
+            for buf in [self.position_buffer, self.orientation_buffer,
+                        self.linear_velocity_buffer, self.angular_velocity_buffer]:
                 for axis in ['x', 'y', 'z']:
                     buf[axis].pop(0)
 
@@ -172,6 +195,7 @@ class DataRecorder(Node):
                 })
             except mp.queues.Full:
                 pass
+
 
 
 class FishSimLauncher(QtWidgets.QWidget):
@@ -489,12 +513,12 @@ class FishSimLauncher(QtWidgets.QWidget):
         wave_settings.addWidget(QtWidgets.QLabel("Wave Mode:"))
         wave_settings.addWidget(self.wave_mode_combo)
 
-        self.wave_number_spin = QtWidgets.QDoubleSpinBox()
-        self.wave_number_spin.setRange(0.0, 10.0)
-        self.wave_number_spin.setSingleStep(0.1)
-        self.wave_number_spin.setValue(1.0)
-        wave_settings.addWidget(QtWidgets.QLabel("Wave Number:"))
-        wave_settings.addWidget(self.wave_number_spin)
+        #self.wave_number_spin = QtWidgets.QDoubleSpinBox()
+        #self.wave_number_spin.setRange(0.0, 10.0)
+        #self.wave_number_spin.setSingleStep(0.1)
+        #self.wave_number_spin.setValue(1.0)
+        #wave_settings.addWidget(QtWidgets.QLabel("Wave Number:"))
+        #wave_settings.addWidget(self.wave_number_spin)
 
         motion_layout.addLayout(wave_settings)
 
@@ -529,6 +553,7 @@ class FishSimLauncher(QtWidgets.QWidget):
             add_spin("shifted_amplitude", 10.0, -180.0, 180.0)
             add_spin("phase_offset", 180.0 if suffix == "m1" else 0.0, -360.0, 360.0)
             add_spin("scale_factor", 1.0, 0.0, 2.0)
+            add_spin("wave_number", 1.0, 0.0, 10.0)
             add_check("forward_s.f.")
 
             group.setLayout(layout)
@@ -784,7 +809,7 @@ class FishSimLauncher(QtWidgets.QWidget):
             # Save shared parameters
             self.params["wave_type"] = self.wave_type_combo.currentText()
             self.params["wave_mode"] = self.wave_mode_combo.currentText()
-            self.params["wave_number"] = self.wave_number_spin.value()
+            #self.params["wave_number"] = self.wave_number_spin.value()
             self.params["membrane_1_on"] = True  # Always on
             self.params["membrane_2_on"] = True  # Always on
 
@@ -795,7 +820,8 @@ class FishSimLauncher(QtWidgets.QWidget):
                 "shifted_amplitude": self.motion_widgets["m1_shifted_amplitude"].value(),
                 "scale_factor": self.motion_widgets["m1_scale_factor"].value(),
                 "forward_sf": self.motion_widgets["m1_forward_s.f."].isChecked(),
-                "phase_offset": self.motion_widgets["m1_phase_offset"].value()
+                "phase_offset": self.motion_widgets["m1_phase_offset"].value(),
+                "wave_number": self.motion_widgets["m1_wave_number"].value()
             }
 
             # Save membrane 2 parameters
@@ -805,7 +831,8 @@ class FishSimLauncher(QtWidgets.QWidget):
                 "shifted_amplitude": self.motion_widgets["m2_shifted_amplitude"].value(),
                 "scale_factor": self.motion_widgets["m2_scale_factor"].value(),
                 "forward_sf": self.motion_widgets["m2_forward_s.f."].isChecked(),
-                "phase_offset": self.motion_widgets["m2_phase_offset"].value()
+                "phase_offset": self.motion_widgets["m2_phase_offset"].value(),
+                "wave_number": self.motion_widgets["m2_wave_number"].value()
             }
 
             # Write to config file
@@ -896,7 +923,7 @@ class FishSimLauncher(QtWidgets.QWidget):
             # Load shared settings
             self.wave_type_combo.setCurrentText(self.params.get("wave_type", "linear"))
             self.wave_mode_combo.setCurrentText(self.params.get("wave_mode", "traveling"))
-            self.wave_number_spin.setValue(self.params.get("wave_number", 1.0))
+            #self.wave_number_spin.setValue(self.params.get("wave_number", 1.0))
             # No need to load membrane_1_on or membrane_2_on; assume always True
 
             # Load membrane 1
@@ -907,6 +934,7 @@ class FishSimLauncher(QtWidgets.QWidget):
             self.motion_widgets["m1_scale_factor"].setValue(m1.get("scale_factor", 1.0))
             self.motion_widgets["m1_phase_offset"].setValue(m1.get("phase_offset", 180.0))
             self.motion_widgets["m1_forward_s.f."].setChecked(m1.get("forward_sf", True))
+            self.motion_widgets["m1_wave_number"].setValue(m1.get("wave_number", 1.0))
 
             # Load membrane 2
             m2 = self.params.get("membrane_2", {})
@@ -916,6 +944,7 @@ class FishSimLauncher(QtWidgets.QWidget):
             self.motion_widgets["m2_scale_factor"].setValue(m2.get("scale_factor", 1.0))
             self.motion_widgets["m2_phase_offset"].setValue(m2.get("phase_offset", 0.0))
             self.motion_widgets["m2_forward_s.f."].setChecked(m2.get("forward_sf", True))
+            self.motion_widgets["m2_wave_number"].setValue(m2.get("wave_number", 1.0))
 
             # Ensure params reflect always-on membranes
             self.params["membrane_1_on"] = True
