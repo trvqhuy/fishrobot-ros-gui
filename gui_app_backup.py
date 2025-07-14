@@ -101,7 +101,6 @@ class DataRecorder(Node):
 
     def pose_callback(self, msg):
         from scipy.spatial.transform import Rotation as R
-        import numpy as np
 
         current_time = time.time()
         if not self.recording or self.writer is None:
@@ -118,45 +117,23 @@ class DataRecorder(Node):
         rotvec = r.as_rotvec()
         ori_x, ori_y, ori_z = rotvec[0], rotvec[1], rotvec[2]
 
-        # --- Linear velocity (GLOBAL by default) ---
+        # --- Linear velocity ---
         if self.last_positions is not None and self.last_time is not None:
             dt = current_time - self.last_time
-            vx = (pos_x - self.last_positions[0]) / dt 
-            vy = (pos_y - self.last_positions[1]) / dt 
-            vz = (pos_z - self.last_positions[2]) / dt 
+            vx = (pos_x - self.last_positions[0]) / dt * self.low_pass_alpha + \
+                (self.linear_velocity_buffer['x'][-1] if self.linear_velocity_buffer['x'] else 0.0) * (1 - self.low_pass_alpha)
+            vy = (pos_y - self.last_positions[1]) / dt * self.low_pass_alpha + \
+                (self.linear_velocity_buffer['y'][-1] if self.linear_velocity_buffer['y'] else 0.0) * (1 - self.low_pass_alpha)
+            vz = (pos_z - self.last_positions[2]) / dt * self.low_pass_alpha + \
+                (self.linear_velocity_buffer['z'][-1] if self.linear_velocity_buffer['z'] else 0.0) * (1 - self.low_pass_alpha)
         else:
             vx = vy = vz = 0.0
-
-        USE_EULER = False
-        # --- Project velocity về local frame ---
-        if USE_EULER:
-            # Dùng Euler angles (roll, pitch, yaw) 
-            yaw, pitch, roll = r.as_euler('ZYX')
-            rot_euler = R.from_euler('ZYX', [yaw, pitch, roll])
-            R_bn = rot_euler.as_matrix()
-        else:
-            # Dùng quaternion luôn (chuẩn)
-            rot = R.from_quat([qx, qy, qz, qw])
-            R_bn = rot.as_matrix()
-
-        R_nb = R_bn.T
-        vel_global = np.array([vx, vy, vz])
-        vel_local = R_nb @ vel_global
-        vx, vy, vz = vel_local[0], vel_local[1], vel_local[2]
-
-        # --- Low-pass filter lên local velocity ---
-        if self.linear_velocity_buffer['x']:
-            vx = vx * self.low_pass_alpha + self.linear_velocity_buffer['x'][-1] * (1 - self.low_pass_alpha)
-            vy = vy * self.low_pass_alpha + self.linear_velocity_buffer['y'][-1] * (1 - self.low_pass_alpha)
-            vz = vz * self.low_pass_alpha + self.linear_velocity_buffer['z'][-1] * (1 - self.low_pass_alpha)
-
 
         # --- Angular velocity từ quaternion ---
         if self.last_quat is not None and self.last_time is not None:
             dt = current_time - self.last_time
             q_prev = self.last_quat
             q_curr = [qx, qy, qz, qw]
-
             r_prev = R.from_quat(q_prev)
             r_curr = R.from_quat(q_curr)
             r_delta = r_curr * r_prev.inv()
