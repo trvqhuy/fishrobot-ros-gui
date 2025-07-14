@@ -25,7 +25,9 @@ DEFAULTS = {
     "membrance_length": 1.096,
 }
 
-# Example for Changes in repo
+
+def example():
+    pass
 
 
 class DataRecorder(Node):
