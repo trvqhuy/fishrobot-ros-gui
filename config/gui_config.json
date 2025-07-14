@@ -9,21 +9,21 @@
     "wave_type": "linear",
     "wave_mode": "traveling",
     "membrane_1": {
-        "frequency": 0.2,
+        "frequency": -1.0,
         "base_amplitude": 30.0,
-        "shifted_amplitude": 10.0,
+        "shifted_amplitude": -90.0,
         "scale_factor": 1.0,
         "forward_sf": true,
         "phase_offset": 0.0,
-        "wave_number": 2.0
+        "wave_number": 1.0
     },
     "membrane_2": {
-        "frequency": 0.2,
+        "frequency": -1.0,
         "base_amplitude": 30.0,
-        "shifted_amplitude": 10.0,
+        "shifted_amplitude": 0.0,
         "scale_factor": 1.0,
         "forward_sf": true,
         "phase_offset": 0.0,
-        "wave_number": 2.0
+        "wave_number": 1.0
     }
 }
